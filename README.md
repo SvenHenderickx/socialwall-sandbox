@@ -2,7 +2,7 @@
 Deze git is gemaakt voor technische prototypes te maken voor het project Social Wall voor Fontys Hogescholen.
 
 ### Live demo
-URL: https://svenhenderickx.nl/projects/socialwall/
+URL: [Social Wall - Sandbox](https://svenhenderickx.nl/projects/socialwall/)
 
 ## Instafeed
 Er is gebruik gemaakt van de javascript library instafeed.js, hiermee kun je gemakkelijk je eigen instagram posts inladen in je website. Dit werkt nu goed naar toebehoren.
