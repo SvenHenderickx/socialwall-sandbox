@@ -1,4 +1,6 @@
 $(document).ready(function(){
+    var instaPosts;
+
     var userFeed = new Instafeed({
         get: 'user',
         userId: 784297742,
@@ -7,9 +9,20 @@ $(document).ready(function(){
         template: '<div class="instapic_wrapper"><img class="instapic" src="{{image}}" /><p>{{caption}}</p></div>',
         mock: true,
         success: function(data){
-            console.log(data);
+            instaPosts = data;
+            doSomething();
         }
 
     });
+
     userFeed.run();
+
+    function doSomething(){
+        console.log(instaPosts);
+        $.each(instaPosts.data, function(k, v) {
+            console.log(v);
+            $('#instafeed').append('<img src="' + v.images.standard_resolution.url + '" />');
+        });
+    }
+
 });
