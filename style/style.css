@@ -1,0 +1,38 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+#instafeed {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+}
+
+.instapic_wrapper {
+    max-width: calc((100% / 3) - 30px);
+    margin: 15px;
+    display: flex;
+    align-items: : center;
+    position: relative;
+}
+
+.instapic_wrapper p {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    padding: 8px 16px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+}
+
+.instapic {
+    max-width: 100%;
+    max-height: 100%;
+    vertical-align: middle;
+}
