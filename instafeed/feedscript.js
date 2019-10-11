@@ -1,4 +1,36 @@
 $(document).ready(function(){
+    $.ajaxSetup({ cache: true });
+      $.getScript('https://connect.facebook.net/en_US/sdk.js', function(){
+        FB.init({
+          appId: '427412294581822',
+          appSecret: 'ed3baf5e6989a074f4adbddcdc6ecbb1',
+          version: 'v4.0'
+        });
+
+        // FB.login(function(response) {
+        //     if (response.authResponse) {
+        //      console.log('Welcome!  Fetching your information.... ');
+        //      FB.api('/me', function(response) {
+        //        console.log('Good to see you, ' + response.name + '.');
+        //      });
+        //     } else {
+        //      console.log('User cancelled login or did not fully authorize.');
+        //     }
+        // });
+
+        FB.api(
+          '/me',
+          'GET',
+          {"fields":"posts{source,link,name,picture,full_picture,created_time,description}"},
+          function(response) {
+              console.log(response);
+          }
+        );
+
+    });
+
+
+
     var instaPosts;
 
     var userFeed = new Instafeed({
@@ -14,21 +46,11 @@ $(document).ready(function(){
 
     });
 
-    FB.api(
-      '/me',
-      'GET',
-      {"fields":"posts{source,link,name,picture,full_picture,created_time,description}"},
-      function(response) {
-          console.log(response);
-      }
-    );
-
     userFeed.run();
 
     function showFeed(){
-        console.log(instaPosts);
+
         $.each(instaPosts.data, function(k, v) {
-            console.log(v);
 
             var caption = '';
             var imagesrc = '';
