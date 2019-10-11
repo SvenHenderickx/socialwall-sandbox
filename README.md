@@ -5,7 +5,7 @@ Deze git is gemaakt voor technische prototypes te maken voor het project Social 
 URL: [Social Wall - Sandbox](https://svenhenderickx.nl/projects/socialwall/)
 
 ## Instafeed - Instagram
-**URL:**[Instafeed.js](http://instafeedjs.com/)
+**URL:** [Instafeed.js](http://instafeedjs.com/)
 
 Er is gebruik gemaakt van de javascript library instafeed.js, hiermee kun je gemakkelijk je eigen instagram posts inladen in je website. Dit werkt nu goed naar toebehoren.
 
