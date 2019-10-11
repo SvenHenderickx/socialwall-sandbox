@@ -7,6 +7,17 @@
         <link href="style/style.css" rel="stylesheet" />
     </head>
     <body>
+        <script>
+          window.fbAsyncInit = function() {
+            FB.init({
+              appId            : '427412294581822',
+              autoLogAppEvents : true,
+              xfbml            : true,
+              version          : 'v4.0'
+            });
+          };
+        </script>
+        <script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
         <div class="container">
             <h1>Social Wall - FHICT</h1>
             <div id="instafeed">
