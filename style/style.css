@@ -1,9 +1,10 @@
 body {
     font-family: 'Montserrat', sans-serif;
+    background-color: rgb(215, 215, 215);
 }
 
 .container {
-    max-width: 1400px;
+    max-width: 1920px;
     margin: 0 auto;
 }
 
@@ -14,12 +15,17 @@ body {
     align-items: center;
 }
 
-.instapic_wrapper {
-    max-width: calc((100% / 3) - 30px);
+.instapic_wrapper, .facebook_wrapper {
+    max-width: calc((100% / 4) - 30px);
     margin: 15px;
     display: flex;
     align-items: : center;
     position: relative;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 2px 0px 5px rgb(0, 0, 0, .2);
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .instapic_wrapper p {
@@ -29,10 +35,26 @@ body {
     padding: 8px 16px;
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
+
 }
 
 .instapic {
     max-width: 100%;
     max-height: 100%;
     vertical-align: middle;
+}
+
+#facebookfeed {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+}
+
+.facebook_wrapper p {
+    vertical-align: middle;
+}
+
+.facebook_wrapper img {
+    max-width: 200px;
 }

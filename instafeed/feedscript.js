@@ -1,25 +1,29 @@
 $(document).ready(function(){
+    var instaPosts;
+    var facebookPosts;
+
     $.ajaxSetup({ cache: true });
       $.getScript('https://connect.facebook.net/en_US/sdk.js', function(){
         FB.init({
-          appId: '427412294581822',
-          version: 'v4.0'
+          appId:'529069617875587',
+          version: 'v5.0'
         });
 
+        var token = 'EAAHhL56iioMBACmZCxlpTZBPo8koSbVFWOlKbjrl9zmBPqBZBFhO5v8IoDYU12UzznpXDyjk2gz6FXmfx9KspE5RYevpOFmB5jDhxgvVToQ1KTrATfGUEKZBFzAuZB91sZAX8Q0knrHvDMZA3xi9PtgsGl7qpb8mMh8VSIdsG64PYkmndwh4HcyUr6SBFGdhawZD';
+
         FB.api(
-          '/me',
-          'GET',
-          {"fields":"posts{source,link,name,picture,full_picture,created_time,description}"},
-          function(response) {
-              console.log(response);
-          }
+              '/me',
+              'GET',
+              { access_token : token,
+                  "fields":"posts{source,full_picture,message,description}"},
+                function(response) {
+                  facebookPosts = response;
+                  showFacebookFeed();
+              }
         );
 
     });
 
-
-
-    var instaPosts;
 
     var userFeed = new Instafeed({
         get: 'user',
@@ -39,7 +43,7 @@ $(document).ready(function(){
     function showFeed(){
 
         $.each(instaPosts.data, function(k, v) {
-            console.log(v);
+            // console.log(v);
 
             var caption = '';
             var imagesrc = '';
@@ -55,6 +59,29 @@ $(document).ready(function(){
             $('#instafeed').append('<div class="instapic_wrapper">' + imagesrc + ' ' + caption + '</div>');
 
         });
+    }
+
+    function showFacebookFeed(){
+        $.each(facebookPosts.posts.data, function (key, value) {
+            var caption = '';
+            var imagesrc = '';
+
+            $.each(value, function(k, v){
+                if(k == 'message'){
+                    caption = '<p>' + v + '</p>';
+                }
+
+                if(k == 'full_picture'){
+                    imagesrc = '<img src="' + v + '" />';
+                }
+            })
+
+            if(caption.length > 0 || imagesrc.length > 0){
+
+                $('#facebookfeed').append('<div class="facebook_wrapper">' + imagesrc + caption + '</div>');
+            }
+
+        })
     }
 
 });
