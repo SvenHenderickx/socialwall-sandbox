@@ -4,9 +4,7 @@ var facebookPosts;
 var instaLoaded = false;
 var facebookLaoded = false;
 
-
-$(document).ready(function(){
-
+function getFacebookPosts(){
     $.ajaxSetup({ cache: true });
       $.getScript('https://connect.facebook.net/en_US/sdk.js', function(){
         FB.init({
@@ -14,7 +12,7 @@ $(document).ready(function(){
           version: 'v5.0'
         });
 
-        var token = 'EAAHhL56iioMBAH766dMhfdoomLhRUL0E05BDZAMlnL0zxfWZBajf2zlt5fzhrymOqcoXfZBcH7ZBh126TkJcHD2fT0oSxHRIhOKZBuHynygp39ZB3xDYSfo6WYHniamoYWB8T9e8Ma7wGGUVGRXSDxZBgZAvcSzkivQSIaPJxjN0xd7ekitATZBZBVMVWvZAFfOr40xGUKHYRGj5AZDZD';
+        var token = 'EAAHhL56iioMBAD61NKTfL71NJeJxNrUuy05hjnkyca33ns26OfO13P5PVxRNcFR19QVgSQJRnv2t2MIZCBRJHfKZA7ZCfCtPs8OUhupYjHDCqOK6Dj1jyoIlBcr9nJAb5ZAnp0vjlVDsft0ZBQQa3CPMQRakwk1CHQU4ih02abfoLTvmmwJkCHXNoS8MWD2CkUzFc90iiFxqYUEfr1JezM1s46cMQ0Ob7dneaCOJnKwZDZD';
 
         FB.api(
               '/me',
@@ -30,8 +28,9 @@ $(document).ready(function(){
         );
 
     });
+}
 
-
+function getInstagramPosts(){
     var userFeed = new Instafeed({
         get: 'user',
         userId: 784297742,
@@ -44,10 +43,33 @@ $(document).ready(function(){
             // showInstaFeed();
 
         }
-
     });
 
     userFeed.run();
+}
+
+function getTwitterPosts(){
+
+    $.ajax({
+        url: 'php/twitterposts.php',
+        type: "POST",
+        data: {
+            name: 'henderickxsven'
+        },
+        succes: function(data){
+            console.log(data);
+        },
+        done: function(data){
+            console.log(data);
+        }
+    })
+}
+
+$(document).ready(function(){
+
+    getFacebookPosts();
+    getInstagramPosts();
+    getTwitterPosts();
 
     function showInstaFeed(){
 
@@ -112,13 +134,18 @@ function showFeed(){
 
     // console.log(mixedfeed);
 
+    var count = 0;
     $.each(mixedfeed, function(k, v){
         addToFeed(v);
+        count += 1;
+        if(count > 11){
+            return false;
+        }
     })
 }
 
 function SortByDate(a, b){
-    if($.isNumeric(a.created_time)){
+    if($.isNumeric(checkSort(a) == 'instagram')){
         var timeA = new Date($(a.created_time).text()*1000);
     }
     else{
@@ -126,7 +153,7 @@ function SortByDate(a, b){
     }
 
 
-    if($.isNumeric(b.created_time)){
+    if($.isNumeric(checkSort(b) == 'instagram')){
         var timeA = new Date($(b.created_time).text()*1000);
     }
     else{
@@ -141,8 +168,8 @@ function addToFeed(feedObject){
         var caption = '';
         var imagesrc = '';
 
-        console.log('instagram object');
-        console.log(feedObject);
+        // console.log('instagram object');
+        // console.log(feedObject);2
 
         if(feedObject.caption !== null){
             caption = "<p>" + feedObject.caption.text + "</p>";
@@ -186,9 +213,9 @@ function checkSort(feedObject){
     var isInsta = false;
 
     $.each(feedObject, function(k, v){
-        console.log(v);
+        // console.log(v);
         if(k === 'filter'){
-            isInsta = true;
+            return 'instagram';
         }
     })
 
