@@ -9,7 +9,7 @@ var twitterLoaded = false;
 var instaCounter = 0;
 var facebookCounter = 0;
 var twitterCounter = 0;
-var maxPostsPerChannel = 150;
+var maxPostsPerChannel = 20;
 
 function getFacebookPosts(){
     $.ajaxSetup({ cache: true });
@@ -19,7 +19,9 @@ function getFacebookPosts(){
           version: 'v5.0'
         });
 
-        var token = 'EAAHhL56iioMBAD61NKTfL71NJeJxNrUuy05hjnkyca33ns26OfO13P5PVxRNcFR19QVgSQJRnv2t2MIZCBRJHfKZA7ZCfCtPs8OUhupYjHDCqOK6Dj1jyoIlBcr9nJAb5ZAnp0vjlVDsft0ZBQQa3CPMQRakwk1CHQU4ih02abfoLTvmmwJkCHXNoS8MWD2CkUzFc90iiFxqYUEfr1JezM1s46cMQ0Ob7dneaCOJnKwZDZD';
+        var token = 'EAAHhL56iioMBAI0ZBvyYh3S1Mdpz3r7Yf5NwAAxkgx0ESiWQ6FVnJykOuujSTXaZCazta0D2TLVRznRMmYU5UreoJJQdH8B07zsOZAfg1bJKqyoeZA6sY2kXErUGyWNjplTp1uZBt7uitHP0uaMQwRZCvC0wtvqru9QHOeusE6h5Q6RcLE1L9a4mhlUMMZAeduvZAielDk5QmixzqTPftShCzWlSkgx9HN2nEMQXDCg4twZDZD';
+
+        var pageid = '362165877144004';
 
         FB.api(
               '/me',
@@ -105,56 +107,36 @@ function showFeed(){
 
     var count = 0;
     $.each(mixedfeed, function(k, v){
+        // console.log(v);
         addToFeed(v);
         count += 1;
-        if(count > 300 && false){
+        if(count > 1000){
             // return false;
         }
     })
 }
 
 function SortByDate(a, b){
-    if(checkSort(a) == 'instagram'){
-        var timeA = new Date((a.created_time)*1000);
-        console.log(a.created_time);
-    }
-    else if(checkSort(a) == 'facebook'){
-        var timeA = new Date(a.created_time);
-        console.log(a.created_time);
-    }
-    else if(checkSort(b) == 'twitter'){
-        var timeA = new Date(a.created_at);
-        console.log(a.created_at);
-    }
-
-
-    if(checkSort(b) == 'instagram'){
-        var timeA = new Date((b.created_time)*1000);
-        console.log(b.created_time);
-    }
-    else if(checkSort(b) == 'facebook'){
-        var timeB = new Date(b.created_time);
-        console.log(b.created_time);
-    }
-    else if(checkSort(b) == 'twitter'){
-        var timeB = new Date(b.created_at);
-        console.log(b.created_at);
-    }
+    var timeA = getDate(a);
+    var timeB = getDate(b);
 
     console.log(timeA);
     console.log(timeB);
 
-    // if(timeA > timeB){
-    //     return 1;
-    // }
-    // else if(timeA < timeB){
-    //     return -1
-    // }
-    // else{
-    //     return 0;
-    // }
+    if(timeA < timeB){
+        console.log(1);
+        return 1;
+    }
+    else if(timeA > timeB){
+        console.log(-1);
+        return -1
+    }
+    else{
+        return 0;
+    }
 
-    return timeA < timeB;
+    // return -1000;
+    console.log(timeA < timeB);
 }
 
 function addToFeed(feedObject){
@@ -252,6 +234,23 @@ function checkSort(feedObject){
 
 }
 
-function createSimpleDate(date){
+function getDate(feedObject){
+    if(checkSort(feedObject) == 'instagram'){
+        return timeA = new Date(feedObject.created_time * 1000);
+        console.log(a.created_time);
+    }
+    else if(checkSort(feedObject) == 'facebook'){
+        return timeA = new Date(feedObject.created_time);
+        console.log(a.created_time);
+    }
+    else if(checkSort(feedObject) == 'twitter'){
+        if($.isArray(feedObject) && feedObject.length > 1){
+            return timeA = new Date(feedObject[0].created_at);
 
+        }
+        else {
+            return timeA = new Date(feedObject.created_at);
+        }
+        console.log(a.created_at);
+    }
 }
