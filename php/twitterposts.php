@@ -3,8 +3,8 @@
 session_start();
 require_once("../twitteroauth/twitteroauth/twitteroauth.php"); //Path to twitteroauth library
 
-$twitteruser = "HenderickxSven";
-$notweets = 30;
+$twitteruser = "FontysICT";
+$notweets = 180;
 $consumerkey = "Rs6xKnG5R3U6o3dTyKamHkJnc";
 $consumersecret = "wxXzpmTCeNLYmt0cYHeSzdhBUm9WszxNiWmcOp0sfk0iWGy2ox";
 $accesstoken = "1189849599520968704-r5bluZ7TqpMDcxl0FjLvals11oeQEB";
@@ -19,6 +19,6 @@ $connection = getConnectionWithAccessToken($consumerkey, $consumersecret, $acces
 
 $tweets = $connection->get("https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=".$twitteruser."&count=".$notweets);
 
-echo json_encode($tweets);
+echo (json_encode($tweets));
 
  ?>

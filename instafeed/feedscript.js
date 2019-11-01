@@ -1,8 +1,15 @@
 var instaPosts;
 var facebookPosts;
+var twitterPosts;
 
 var instaLoaded = false;
-var facebookLaoded = false;
+var facebookLoaded = false;
+var twitterLoaded = false;
+
+var instaCounter = 0;
+var facebookCounter = 0;
+var twitterCounter = 0;
+var maxPostsPerChannel = 150;
 
 function getFacebookPosts(){
     $.ajaxSetup({ cache: true });
@@ -21,7 +28,7 @@ function getFacebookPosts(){
                   "fields":"posts{source,full_picture,message,description,created_time}"},
                 function(response) {
                   facebookPosts = response;
-                  facebookLaoded = true;
+                  facebookLoaded = true;
                   // console.log(facebookPosts);
                   // showFacebookFeed();
               }
@@ -52,15 +59,22 @@ function getTwitterPosts(){
 
     $.ajax({
         url: 'php/twitterposts.php',
-        type: "POST",
+        type: "GET",
         data: {
-            name: 'henderickxsven'
+            name: 'HenderickxSven'
         },
-        succes: function(data){
-            console.log(data);
+        success: function(data)
+        {
+            data = JSON.parse(data);
+            twitterPosts = data;
+            twitterLoaded = true;
+            // console.log(twitterPosts);
         },
-        done: function(data){
-            console.log(data);
+        error: function (xhr, ajaxOptions, thrownError)
+        {
+            $(input).text('Mislukt.');
+            var errorMsg = 'Ajax request failed: ' + xhr.responseText;
+            console.log(errorMsg);
         }
     })
 }
@@ -71,53 +85,8 @@ $(document).ready(function(){
     getInstagramPosts();
     getTwitterPosts();
 
-    function showInstaFeed(){
-
-        $.each(instaPosts.data, function(k, v) {
-            // console.log(v);
-
-            var caption = '';
-            var imagesrc = '';
-            if(v.caption !== null){
-                caption = "<p>" + v.caption.text + "</p>";
-            }
-
-            if(v.images !== null){
-                imagesrc = '<img class="instapic" src="' + v.images.standard_resolution.url + '"/>';
-            }
-
-
-            $('#instafeed').append('<div class="instapic_wrapper">' + imagesrc + ' ' + caption + '</div>');
-
-        });
-    }
-
-    function showFacebookFeed(){
-        $.each(facebookPosts.posts.data, function (key, value) {
-            var caption = '';
-            var imagesrc = '';
-            // console.log(value);
-
-            $.each(value, function(k, v){
-                if(k == 'message'){
-                    caption = '<p>' + v + '</p>';
-                }
-
-                if(k == 'full_picture'){
-                    imagesrc = '<img src="' + v + '" />';
-                }
-            })
-
-            if(caption.length > 0 || imagesrc.length > 0){
-
-                $('#facebookfeed').append('<div class="facebook_wrapper">' + imagesrc + caption + '</div>');
-            }
-
-        })
-    }
-
     function checkVariable() {
-       if (facebookLaoded && instaLoaded) {
+       if (facebookLoaded && instaLoaded && twitterLoaded) {
            showFeed();
        }
     }
@@ -129,47 +98,70 @@ $(document).ready(function(){
 function showFeed(){
 
     console.log('test');
-    var mixedfeed = $.merge( $.merge( [], instaPosts.data ), facebookPosts.posts.data );
-    mixedfeed.sort(SortByDate);
+    var mixedfeed = $.merge($.merge( [], instaPosts.data ), facebookPosts.posts.data );
+    mixedfeed = $.merge($.merge( [], twitterPosts ), mixedfeed );
 
-    // console.log(mixedfeed);
+    mixedfeed = mixedfeed.sort(SortByDate);
 
     var count = 0;
     $.each(mixedfeed, function(k, v){
         addToFeed(v);
         count += 1;
-        if(count > 11){
-            return false;
+        if(count > 300 && false){
+            // return false;
         }
     })
 }
 
 function SortByDate(a, b){
-    if($.isNumeric(checkSort(a) == 'instagram')){
-        var timeA = new Date($(a.created_time).text()*1000);
+    if(checkSort(a) == 'instagram'){
+        var timeA = new Date((a.created_time)*1000);
+        console.log(a.created_time);
     }
-    else{
-        var timeA = new Date($(a.created_time).text());
+    else if(checkSort(a) == 'facebook'){
+        var timeA = new Date(a.created_time);
+        console.log(a.created_time);
     }
-
-
-    if($.isNumeric(checkSort(b) == 'instagram')){
-        var timeA = new Date($(b.created_time).text()*1000);
-    }
-    else{
-        var timeB = new Date($(b.created_time).text());
+    else if(checkSort(b) == 'twitter'){
+        var timeA = new Date(a.created_at);
+        console.log(a.created_at);
     }
 
-    return timeA - timeB;
+
+    if(checkSort(b) == 'instagram'){
+        var timeA = new Date((b.created_time)*1000);
+        console.log(b.created_time);
+    }
+    else if(checkSort(b) == 'facebook'){
+        var timeB = new Date(b.created_time);
+        console.log(b.created_time);
+    }
+    else if(checkSort(b) == 'twitter'){
+        var timeB = new Date(b.created_at);
+        console.log(b.created_at);
+    }
+
+    console.log(timeA);
+    console.log(timeB);
+
+    // if(timeA > timeB){
+    //     return 1;
+    // }
+    // else if(timeA < timeB){
+    //     return -1
+    // }
+    // else{
+    //     return 0;
+    // }
+
+    return timeA < timeB;
 }
 
 function addToFeed(feedObject){
-    if(checkSort(feedObject) == 'instagram'){
+    if(checkSort(feedObject) == 'instagram' && instaCounter < maxPostsPerChannel){
+        instaCounter++;
         var caption = '';
         var imagesrc = '';
-
-        // console.log('instagram object');
-        // console.log(feedObject);2
 
         if(feedObject.caption !== null){
             caption = "<p>" + feedObject.caption.text + "</p>";
@@ -182,10 +174,11 @@ function addToFeed(feedObject){
         var date = new Date(feedObject.created_time * 1000)
         date = '<small>' + date + '</small>'
 
-        $('#mixedfeed').append('<div class="facebook_wrapper">' + imagesrc + ' ' + caption + date + '</div>');
+        $('#mixedfeed').append('<div class="facebook_wrapper instagram">' + imagesrc + ' ' + caption + date + '</div>');
     }
 
-    if(checkSort(feedObject) == 'facebook'){
+    if(checkSort(feedObject) == 'facebook' && facebookCounter < maxPostsPerChannel){
+        facebookCounter++;
         var caption = '';
         var imagesrc = '';
         // console.log(value);
@@ -200,29 +193,65 @@ function addToFeed(feedObject){
             }
         })
 
-        var date = '<small>' + feedObject.created_time + '</small>'
+        var date = '<small>' + new Date(feedObject.created_time) + '</small>'
 
         if(caption.length > 0 || imagesrc.length > 0){
 
-            $('#mixedfeed').append('<div class="facebook_wrapper">' + imagesrc + caption + date + '</div>');
+            $('#mixedfeed').append('<div class="facebook_wrapper facebook">' + imagesrc + caption + date + '</div>');
         }
+    }
+
+    if(checkSort(feedObject) == 'twitter' && twitterCounter < maxPostsPerChannel){
+        twitterCounter++;
+        var caption = '';
+        var imagesrc = '';
+
+        if(feedObject.text !== null){
+            caption = "<p>" + feedObject.text + "</p>";
+        }
+
+        $.each(feedObject, function(k, v){
+            if(k == 'extended_entities'){
+                $.each(v, function(k_, va){
+                    imagesrc = '<img src="' + va[0].media_url + '" />';
+                    console.log(va);
+                })
+            }
+        })
+
+        var date = new Date(feedObject.created_at);
+        date = '<small>' + date + '</small>';
+
+        $('#mixedfeed').append('<div class="facebook_wrapper twitter">' + imagesrc + ' ' + caption + date + '</div>');
     }
 }
 
 function checkSort(feedObject){
     var isInsta = false;
+    var isTwitter = false;
 
     $.each(feedObject, function(k, v){
         // console.log(v);
         if(k === 'filter'){
-            return 'instagram';
+            isInsta = true;
+        }
+        if(k === 'in_reply_to_screen_name'){
+            isTwitter = true;
         }
     })
 
     if(isInsta){
         return 'instagram';
     }
+    else if(isTwitter){
+        return 'twitter';
+    }
     else{
         return 'facebook';
     }
+
+}
+
+function createSimpleDate(date){
+
 }
