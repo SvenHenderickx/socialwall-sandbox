@@ -9,7 +9,7 @@ var twitterLoaded = false;
 var instaCounter = 0;
 var facebookCounter = 0;
 var twitterCounter = 0;
-var maxPostsPerChannel = 20;
+var maxPostsPerChannel = 5;
 
 function getFacebookPosts(){
     $.ajaxSetup({ cache: true });
@@ -146,7 +146,7 @@ function addToFeed(feedObject){
         var imagesrc = '';
 
         if(feedObject.caption !== null){
-            caption = "<p>" + feedObject.caption.text + "</p>";
+            caption = "<p>" + instaCounter + ' - ' + feedObject.caption.text + "</p>";
         }
 
         if(feedObject.images !== null){
@@ -156,7 +156,7 @@ function addToFeed(feedObject){
         var date = new Date(feedObject.created_time * 1000)
         date = '<small>' + date + '</small>'
 
-        $('#mixedfeed').append('<div class="facebook_wrapper instagram">' + imagesrc + ' ' + caption + date + '</div>');
+        $('#mixedfeed').append('<div class="facebook_wrapper instagram">' + imagesrc + ' ' + caption + '</div>');
     }
 
     if(checkSort(feedObject) == 'facebook' && facebookCounter < maxPostsPerChannel){
@@ -167,7 +167,7 @@ function addToFeed(feedObject){
 
         $.each(feedObject, function(k, v){
             if(k == 'message'){
-                caption = '<p>' + v + '</p>';
+                caption = '<p>' + facebookCounter + ' - '+ v + '</p>';
             }
 
             if(k == 'full_picture'){
@@ -179,7 +179,7 @@ function addToFeed(feedObject){
 
         if(caption.length > 0 || imagesrc.length > 0){
 
-            $('#mixedfeed').append('<div class="facebook_wrapper facebook">' + imagesrc + caption + date + '</div>');
+            $('#mixedfeed').append('<div class="facebook_wrapper facebook">' + imagesrc + caption + '</div>');
         }
     }
 
@@ -189,7 +189,7 @@ function addToFeed(feedObject){
         var imagesrc = '';
 
         if(feedObject.text !== null){
-            caption = "<p>" + feedObject.text + "</p>";
+            caption = "<p>" + twitterCounter + ' - '+ feedObject.text + "</p>";
         }
 
         $.each(feedObject, function(k, v){
@@ -204,7 +204,7 @@ function addToFeed(feedObject){
         var date = new Date(feedObject.created_at);
         date = '<small>' + date + '</small>';
 
-        $('#mixedfeed').append('<div class="facebook_wrapper twitter">' + imagesrc + ' ' + caption + date + '</div>');
+        $('#mixedfeed').append('<div class="facebook_wrapper twitter">' + imagesrc + ' ' + caption + '</div>');
     }
 }
 

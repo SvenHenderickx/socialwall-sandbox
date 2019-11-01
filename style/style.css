@@ -62,14 +62,27 @@ body {
 
 }
 
-.facebook_wrapper::before {
+.facebook {
+    background-color: rgb(111, 122, 235);
+    color: white;
+}
+
+.twitter {
+    background-color: rgb(61, 215, 232);
+}
+
+.instagram {
+    background-color: rgb(220, 110, 227);   
+}
+
+/* .facebook_wrapper::before {
     position: absolute;
     top: -10px;
     left: 0;
     content: '';
-}
+} */
 
-.facebook::before {
+/* .facebook::before {
     content: 'facebook';
 }
 .instagram::before {
@@ -77,4 +90,4 @@ body {
 }
 .twitter::before {
     content: 'twitter';
-}
+} */
