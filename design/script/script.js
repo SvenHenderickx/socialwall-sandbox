@@ -1,71 +1,92 @@
+var amountOfBubble = 4;
+var radius = 100;
+var pushbackPx = 20;
+var classes = [
+    'facebook',
+    'twitter',
+    'instagram'
+];
+var bubbles = [];
 
-var width = window.innerWidth - 100,
-    height = window.innerHeight - 100;
+var maxX;
+var maxY;
+var minX = 0;
+var minY = 0;
 
-var nodes = d3.range(10).map(function() { return {radius: 30}; }),
-    root = nodes[0],
-    color = d3.scale.category10();
 
-root.radius = 100;
-root.fixed = true;
+$(document).ready(function(){
+    var maxX = $("#canvas").width() - (radius * 2);
+    var maxY = $('#canvas').height() - (radius * 2);
+    for(var i = 0; i < amountOfBubble; i++){
+        do {
+            newBubble = new Bubble(i, getRandomInt(maxX), getRandomInt(maxY), radius, 'facebook');
+            console.log('in new bubble');
+            // sleep(10);s
+        }
+        while(hasCollision(newBubble));
 
-var force = d3.layout.force()
-    .gravity(0.08)
-    .charge(function(d, i) { return i ? 0 : -2500; })
-    .nodes(nodes)
-    .size([width, height]);
-
-force.start();
-
-var svg = d3.select("body").append("svg")
-    .attr("width", width)
-    .attr("height", height);
-
-svg.selectAll("circle")
-    .data(nodes.slice(1))
-    .enter().append("circle")
-    .attr("r", function(d) { return d.radius; })
-    .style("fill", function(d, i) { return color(i % 3); });
-
-force.on("tick", function(e) {
-  var q = d3.geom.quadtree(nodes),
-      i = 0,
-      n = nodes.length;
-
-  while (++i < n) q.visit(collide(nodes[i]));
-
-  svg.selectAll("circle")
-      .attr("cx", function(d) { return d.x; })
-      .attr("cy", function(d) { return d.y; });
-});
-
-svg.on("mousemove", function() {
-  var p1 = d3.mouse(this);
-  root.px = p1[0];
-  root.py = p1[1];
-  force.resume();
-});
-
-function collide(node) {
-  var r = node.radius + 16,
-      nx1 = node.x - r,
-      nx2 = node.x + r,
-      ny1 = node.y - r,
-      ny2 = node.y + r;
-  return function(quad, x1, y1, x2, y2) {
-    if (quad.point && (quad.point !== node)) {
-      var x = node.x - quad.point.x,
-          y = node.y - quad.point.y,
-          l = Math.sqrt(x * x + y * y),
-          r = node.radius + quad.point.radius;
-      if (l < r) {
-        l = (l - r) / l * .5;
-        node.x -= x *= l;
-        node.y -= y *= l;
-        quad.point.x += x;
-        quad.point.y += y;
-      }
+        bubbles.push(newBubble);
     }
-    return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
-  };
+
+    $.each(bubbles, function(k, v){
+        createBubble(v);
+    })
+})
+
+function Bubble(id, x, y, radius, type) {
+    this.id = id;
+    this.x = x;
+    this.xmax = x + radius;
+    this.y = y;
+    this.ymax = y + radius;
+    this.radius = radius;
+    this.type = type;
+
+    return this;
+}
+
+function createBubble(bubble){
+    $('#canvas').append('<div data-id="' + bubble.id + '" class="socialBubble ' + bubble.type + '" style="width:' + bubble.radius + 'px;height:' + bubble.radius + 'px;left:' + bubble.x + 'px; top:' + bubble.y + 'px"></div>');
+}
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
+
+function hasCollision(bubble){
+    var hasHit = false;
+    for(var i = 0; i < bubbles.length; i++){
+
+            var distX = Math.abs(bubbles[i].x - bubble.x);
+            var distY = Math.abs(bubbles[i].y - bubble.y);
+
+            if(distX < (radius + pushbackPx)){
+                console.log(distX);
+                return true;
+            }
+
+            if(distY < (radius + pushbackPx)){
+                console.log(distY);
+                return true;
+
+            }
+
+    }
+    console.log(hasHit);
+    return false;
+}
+
+setInterval(500, moveBubbles);
+
+function moveBubbles(){
+    for(var i = 0; i < bubbles.length; i++){
+        bubbles[i].x + 50;
+        if(!hasCollision(bubbles[i])){
+            $('#canvas').each('.socialBubble', function(v){
+                if(v.atr('data-id') == bubbles[i].id){
+                    $(this)
+                }
+            })
+        }
+    }
 }
