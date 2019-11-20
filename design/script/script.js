@@ -1,7 +1,7 @@
 var amountOfBubble = 4;
-var radius = 100;
-var pushbackPx = 20;
-var classes = [
+var radius = 180;
+var pushbackPx = 40;
+var types = [
     'facebook',
     'twitter',
     'instagram'
@@ -12,16 +12,16 @@ var maxX;
 var maxY;
 var minX = 0;
 var minY = 0;
+var moveDis = 10;
+var moveSpeed = 400;
 
 
 $(document).ready(function(){
     var maxX = $("#canvas").width() - (radius * 2);
     var maxY = $('#canvas').height() - (radius * 2);
-    for(var i = 0; i < amountOfBubble; i++){
+    for(var i = 0; i < types.length; i++){
         do {
-            newBubble = new Bubble(i, getRandomInt(maxX), getRandomInt(maxY), radius, 'facebook');
-            console.log('in new bubble');
-            // sleep(10);s
+            newBubble = new Bubble(i, getRandomInt(minX, maxX), getRandomInt(minX, maxY), radius, 'facebook');
         }
         while(hasCollision(newBubble));
 
@@ -31,6 +31,9 @@ $(document).ready(function(){
     $.each(bubbles, function(k, v){
         createBubble(v);
     })
+
+    setInterval(moveBubbles, moveSpeed);
+
 })
 
 function Bubble(id, x, y, radius, type) {
@@ -49,8 +52,10 @@ function createBubble(bubble){
     $('#canvas').append('<div data-id="' + bubble.id + '" class="socialBubble ' + bubble.type + '" style="width:' + bubble.radius + 'px;height:' + bubble.radius + 'px;left:' + bubble.x + 'px; top:' + bubble.y + 'px"></div>');
 }
 
-function getRandomInt(max) {
-  return Math.floor(Math.random() * Math.floor(max));
+function getRandomInt(min, max) {
+
+    let rand = min + Math.random() * (max + 1 - min);
+    return Math.floor(rand);
 }
 
 function hasCollision(bubble){
@@ -60,12 +65,12 @@ function hasCollision(bubble){
             var distX = Math.abs(bubbles[i].x - bubble.x);
             var distY = Math.abs(bubbles[i].y - bubble.y);
 
-            if(distX < (radius + pushbackPx)){
+            if(distX < (radius + pushbackPx) && bubbles[i].x > minX + pushbackPx && bubbles[i].xmax < maxX - pushbackPx){
                 console.log(distX);
                 return true;
             }
 
-            if(distY < (radius + pushbackPx)){
+            if(distY < (radius + pushbackPx) && bubbles[i].y > minY + pushbackPx && bubbles[i].ymax < maxY - pushbackPx){
                 console.log(distY);
                 return true;
 
@@ -76,17 +81,47 @@ function hasCollision(bubble){
     return false;
 }
 
-setInterval(500, moveBubbles);
 
 function moveBubbles(){
+    console.log('in move bubbles');
     for(var i = 0; i < bubbles.length; i++){
-        bubbles[i].x + 50;
-        if(!hasCollision(bubbles[i])){
-            $('#canvas').each('.socialBubble', function(v){
-                if(v.atr('data-id') == bubbles[i].id){
-                    $(this)
+        $('div#canvas div.socialBubble').each(function(){
+            if($(this).attr('data-id') == bubbles[i].id){
+                var rndx = getRandomInt(0, moveDis);
+                var rndy = getRandomInt(0, moveDis);
+                var mltpl = 10;
+
+
+
+                if(Math.random() > .5){
+                    var bubbleTemp = bubbles[i];
+                    bubbleTemp.x -= rndx;
+                    bubbleTemp.y -= rndy;
+                    if(!hasCollision(bubbleTemp)){
+                        bubbles[i] = bubbleTemp;
+                    }
+                    else{
+                        bubbleTemp.x += rndx;
+                        bubbleTemp.y += rndy;
+                        bubbles[i] = bubbleTemp;
+                    }
                 }
-            })
-        }
+                else{
+                    var bubbleTemp = bubbles[i];
+                    bubbleTemp.x += rndx;
+                    bubbleTemp.y += rndy;
+                    if(!hasCollision(bubbleTemp)){
+                        bubbles[i] = bubbleTemp;
+                    }
+                    else{
+                        bubbleTemp.x -= rndx;
+                        bubbleTemp.y -= rndy;
+                        bubbles[i] = bubbleTemp;
+                    }
+                }
+
+                $(this).css({'top': bubbles[i].x, 'left': bubbles[i].y});
+            }
+        })
     }
 }
