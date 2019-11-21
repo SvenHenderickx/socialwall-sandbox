@@ -87,38 +87,38 @@ function moveBubbles(){
     for(var i = 0; i < bubbles.length; i++){
         $('div#canvas div.socialBubble').each(function(){
             if($(this).attr('data-id') == bubbles[i].id){
-            //     var rndx = getRandomInt(0, moveDis);
-            //     var rndy = getRandomInt(0, moveDis);
-            //     var mltpl = 10;
-            //
-            //
-            //
-            //     if(Math.random() > .5){
-            //         var bubbleTemp = bubbles[i];
-            //         bubbleTemp.x -= rndx;
-            //         bubbleTemp.y -= rndy;
-            //         if(!hasCollision(bubbleTemp)){
-            //             bubbles[i] = bubbleTemp;
-            //         }
-            //         else{
-            //             bubbleTemp.x += rndx;
-            //             bubbleTemp.y += rndy;
-            //             bubbles[i] = bubbleTemp;
-            //         }
-            //     }
-            //     else{
-            //         var bubbleTemp = bubbles[i];
-            //         bubbleTemp.x += rndx;
-            //         bubbleTemp.y += rndy;
-            //         if(!hasCollision(bubbleTemp)){
-            //             bubbles[i] = bubbleTemp;
-            //         }
-            //         else{
-            //             bubbleTemp.x -= rndx;
-            //             bubbleTemp.y -= rndy;
-            //             bubbles[i] = bubbleTemp;
-            //         }
-            //     }
+                var rndx = getRandomInt(0, moveDis);
+                var rndy = getRandomInt(0, moveDis);
+                var mltpl = 10;
+
+
+
+                if(Math.random() > .5){
+                    var bubbleTemp = bubbles[i];
+                    bubbleTemp.x -= rndx;
+                    bubbleTemp.y -= rndy;
+                    if(!hasCollision(bubbleTemp)){
+                        bubbles[i] = bubbleTemp;
+                    }
+                    else{
+                        bubbleTemp.x += rndx;
+                        bubbleTemp.y += rndy;
+                        bubbles[i] = bubbleTemp;
+                    }
+                }
+                else{
+                    var bubbleTemp = bubbles[i];
+                    bubbleTemp.x += rndx;
+                    bubbleTemp.y += rndy;
+                    if(!hasCollision(bubbleTemp)){
+                        bubbles[i] = bubbleTemp;
+                    }
+                    else{
+                        bubbleTemp.x -= rndx;
+                        bubbleTemp.y -= rndy;
+                        bubbles[i] = bubbleTemp;
+                    }
+                }
 
                 $(this).css({'top': bubbles[i].x, 'left': bubbles[i].y});
             }
