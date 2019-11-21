@@ -1,0 +1,31 @@
+
+
+{
+    "name": "FHICT",
+    "children": [
+        {
+            "name": "Instagram",
+            "children": [
+                {"id": 0,"name": "Goodmorning! Here’s an inspiring post written by one of our ICT & Business students Aleyna Kartal ✨ Thank you so much for sharing this experience! //", "size": 3938, "imagesrc": "https://scontent-ams4-1.cdninstagram.com/v/t51.2885-15/e35/73512635_178693619936512_2084414002733977782_n.jpg?_nc_ht=scontent-ams4-1.cdninstagram.com&_nc_cat=104&oh=24604422fde65888e0edc09e7ffd30c4&oe=5E6B3D97"},
+                {"id": 1,"name": "Open day at our Tilburg location! Check out @ict013 for live posts and stories 🙌🏻 // REPOST • @ict013 Onze studenten staan voor je klaar💪🙌 Open Dag locatie Tilburg van 10.00-15.00 uur⚡️ #wijzijnfontys #ict013", "size": 10, "imagesrc": "https://scontent-ams4-1.cdninstagram.com/v/t51.2885-15/e35/73497481_747806538979720_5942649684174603405_n.jpg?_nc_ht=scontent-ams4-1.cdninstagram.com&_nc_cat=104&oh=0e0be7c36683c7f2eb97e8f3710a9356&oe=5E6907A8"}
+            ]
+        },
+        {
+            "name": "Facebook",
+            "children": [
+                {"id": 2,"name": "AgglomerativeCluster", "size": 3938},
+                {"id": 3,"name": "AgglomerativeCluster", "size": 3938},
+                {"id": 4,"name": "AgglomerativeCluster", "size": 3938}
+            ]
+        },
+        {
+            "name": "Twitter",
+            "children": [
+                {"id": 5,"name": "AgglomerativeCluster", "size": 3938},
+                {"id": 6,"name": "AgglomerativeCluster", "size": 3938},
+                {"id": 7,"name": "AgglomerativeCluster", "size": 3938}
+            ]
+        }
+
+    ]
+}

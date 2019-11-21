@@ -15,7 +15,7 @@ html, body {
 }
 
 .socialBubble {
-    position: absolute;
+    position: fixed;
     background: rgb(19, 96, 167);
     border-radius: 50%;
     transition: .5s;
@@ -25,15 +25,29 @@ html, body {
     transform: scale(1.5);
 }
 
-.link {
-  stroke: #30919d;
+.node circle {
+  cursor: pointer;
+  stroke: #ffffff;
+  fill: #324aa3;
+  stroke-width: 1.5px;
 }
 
-.node {
-  fill: #5a9fd0;
-  -webkit-filter: drop-shadow( 3px 3px 2px rgba(8, 128, 145, 0.7));
-  filter: drop-shadow( 3px 3px 2px rgba(8, 128, 145, 0.7));
-  /* stroke: #fff; */
+.node .posts {
+
+}
+
+.node text, .post text {
+  font: 10px sans-serif;
+  pointer-events: none;
+  text-anchor: middle;
+  fill: white;
+  width: 200px;
+}
+
+line.link {
+  fill: none;
+  stroke: #9ecae1;
+  stroke-width: 1.5px;
 }
 
 #chart {
@@ -43,4 +57,11 @@ html, body {
     position: fixed;
     top: 0;
     left: 0;
+}
+
+.postblock {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    background-color: red;
 }

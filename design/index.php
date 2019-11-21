@@ -8,23 +8,31 @@
 </head>
 <body>
 
-    <div id="chart"></div>
-    <ul style="display:none;" id="list">
-        <li>
-            <ul>
-                <li>
-                    test
-                </li>
-                <li>
-                    test
-                </li>
-                <li>
-                    test
-                </li>
-                <li>
-                    test
-                </li>
-            </ul>
-        </li>
-    </ul>
+    <div id="chart">
+        <!-- <div class="postblock" data-id="0">
+
+        </div>
+        <div class="postblock" data-id="1">
+
+        </div>
+        <div class="postblock" data-id="2">
+
+        </div>
+        <div class="postblock" data-id="3">
+
+        </div>
+        <div class="postblock" data-id="4">
+
+        </div>
+        <div class="postblock" data-id="5">
+
+        </div>
+        <div class="postblock" data-id="6">
+
+        </div>
+        <div class="postblock" data-id="7">
+
+        </div> -->
+    </div>
+
 </body>
