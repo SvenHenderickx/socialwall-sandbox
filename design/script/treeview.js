@@ -14,8 +14,8 @@ $(document).ready(function(){
         });
 
     var force = d3.layout.force()
-        .charge(-120)
-        .distance(30)
+        .charge(-280)
+        .distance(300)
         .nodes(nodes)
         .links(links)
         .size([width, height])
@@ -36,7 +36,7 @@ $(document).ready(function(){
         .attr("class", "node")
         .attr("cx", function(d) { return d.x; })
         .attr("cy", function(d) { return d.y; })
-        .attr("r", 5)
+        .attr("r", 50)
         .call(force.drag);
 
     force.on("tick", function() {
