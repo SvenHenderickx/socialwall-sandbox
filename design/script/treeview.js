@@ -50,40 +50,8 @@ $(document).ready(function(){
 
       var nodeEnter = node.enter().append("g")
           .attr("class", classes)
-          .attr("data-id", function(d){return d.id})
           .on("click", click)
           .call(force.drag);
-
-      $.each(nodeEnter[0], function(k, v){
-          if($(v).hasClass('post')){
-              // $(this).append("rect")
-              //     .attr("width", 200)
-              //     .attr("height", 200);
-              //
-              // $(this).append("text")
-              //     .attr("dy", ".35em")
-              //     .text(function(d) { return d.name; });
-              //
-              // $(this).select("rect")
-              // .style("fill", color);
-
-              // console.log(node);
-          }
-          else{
-
-          }
-      })
-
-      // nodeEnter.append("rect")
-      //     .attr("width", 200)
-      //     .attr("height", 200);
-      //
-      // nodeEnter.append("text")
-      //     .attr("dy", ".35em")
-      //     .text(function(d) { return d.name; });
-      //
-      // nodeEnter.select("rect")
-      // .style("fill", color);
 
       nodeEnter.append("circle")
           .attr("r", isround);
@@ -95,30 +63,6 @@ $(document).ready(function(){
       node.select("circle")
       .style("fill", color);
 
-
-      // Update posts.
-      // posts = posts.data(posts, function(d) { return d.id; });
-      // console.log(posts);
-      //
-      // posts.exit().remove();
-      //
-      // var postsEnter = posts.enter().append("g")
-      //     .attr("class", classes)
-      //     .on("click", click)
-      //     .call(force.drag);
-      //
-      // postsEnter.append("rect")
-      //     .attr("width", 200)
-      //     .attr("height", 200);
-      //
-      // postsEnter.append("text")
-      //     .attr("dy", ".35em")
-      //     .text(function(d) { return d.name; });
-      //
-      // postsEnter.select("rect")
-      //     .style("fill", color);
-
-
     }
 
     function tick() {
@@ -128,7 +72,7 @@ $(document).ready(function(){
           .attr("y2", function(d) { return d.target.y; });
 
       node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
-      showPosts();
+      // showPosts();
 
     }
 
@@ -206,7 +150,7 @@ function showPosts(){
             if($(vp).attr('data-id') == $(v).attr('data-id')){
                 $(vp).css({'top': xpos + "px", 'left': ypos + "px"});
             }
-            
+
         })
     })
 }
