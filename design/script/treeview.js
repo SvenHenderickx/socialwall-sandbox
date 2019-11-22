@@ -1,12 +1,12 @@
-$(document).ready(function(){
+$(document).ready(function() {
     var width = $('#chart').width(),
-    height = $('#chart').height(),
-    root;
+        height = $('#chart').height(),
+        root;
 
     var force = d3.layout.force()
-        .linkDistance(distance)
-        .charge(-300)
-        .gravity(.01)
+        .linkDistance(500)
+        .charge(-100)
+        .gravity(.002)
         .size([width, height])
         .on("tick", tick);
 
@@ -15,128 +15,153 @@ $(document).ready(function(){
         .attr("height", height);
 
     var link = svg.selectAll(".link"),
-        node = svg.selectAll(".node"),
-        posts = svg.selectAll(".node .post");
-
+        node = svg.selectAll(".node");
 
     d3.json("script/graph.json", function(error, json) {
-      if (error) throw error;
+        if (error) throw error;
 
-      root = json;
-      update();
+        root = json;
+        update();
     });
 
     function update() {
-      var nodes = flatten(root),
-          links = d3.layout.tree().links(nodes);
+        var nodes = flatten(root),
+            links = d3.layout.tree().links(nodes);
 
-      // Restart the force layout.
-      force
-          .nodes(nodes)
-          .links(links)
-          .start();
+        // Restart the force layout.
+        force
+            .nodes(nodes)
+            .links(links)
+            .start();
 
-      // Update links.
-      link = link.data(links, function(d) { return d.target.id; });
+        // Update links.
+        link = link.data(links, function(d) {
+            return d.target.id;
+        });
 
-      link.exit().remove();
+        link.exit().remove();
 
-      link.enter().insert("line", ".node")
-          .attr("class", "link");
+        link.enter().insert("line", ".node")
+            .attr("class", "link");
 
-      // Update nodes.
-      node = node.data(nodes, function(d) { return d.id; });
-      node.exit().remove();
+        // Update nodes.
+        node = node.data(nodes, function(d) {
+            return d.id;
+        });
 
-      var nodeEnter = node.enter().append("g")
-          .attr("class", classes)
-          .on("click", click)
-          .call(force.drag);
+        node.exit().remove();
 
-      nodeEnter.append("circle")
-          .attr("r", isround);
+        var nodeEnter = node.enter().append("g")
+            .attr("class", classes)
+            .attr("data-id", dataid)
+            .on("click", click)
+            .call(force.drag);
 
-      nodeEnter.append("text")
-          .attr("dy", ".35em")
-          .text(function(d) { return d.name; });
+        nodeEnter.append("circle")
+            .attr("r", size);
 
-      node.select("circle")
-      .style("fill", color);
+        nodeEnter.append("text")
+            .attr("dy", ".35em")
+            .text(returntext);
 
+        node.select("circle")
+            .style("fill", color);
     }
 
     function tick() {
-      link.attr("x1", function(d) { return d.source.x; })
-          .attr("y1", function(d) { return d.source.y; })
-          .attr("x2", function(d) { return d.target.x; })
-          .attr("y2", function(d) { return d.target.y; });
+        link.attr("x1", function(d) {
+                return d.source.x;
+            })
+            .attr("y1", function(d) {
+                return d.source.y;
+            })
+            .attr("x2", function(d) {
+                return d.target.x;
+            })
+            .attr("y2", function(d) {
+                return d.target.y;
+            });
 
-      node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
-      // showPosts();
+        node.attr("transform", function(d) {
+            return "translate(" + d.x + "," + d.y + ")";
+        });
 
+        showPosts();
     }
 
     function color(d) {
-      return d._children ? "#014d83" // collapsed package
-          : d.children ? "#6199cf" // expanded package
-          : "#002962"; // leaf node
+        return d._children ? "#3182bd" // collapsed package
+            :
+            d.children ? "#c6dbef" // expanded package
+            :
+            "#fd8d3c"; // leaf node
     }
 
-    function isround(d) {
+    function size(d){
         return d._children ? 100 // collapsed package
-            : d.children ? 50 // expanded package
-            : 0; // leaf node
-    }
-
-    function distance(d){
-        return d._children ? 10 // collapsed package
-            : d.children ? 300 // expanded package
-            : 200; // leaf node
+            :
+            d.children ? 100 // expanded package
+            :
+            200; // leaf node
     }
 
     function classes(d){
-        return d._children ? 'node first' // collapsed package
-            : d.children ? 'node' // expanded package
-            : 'post'; // leaf node
+        return d._children ? "node" // collapsed package
+            :
+            d.children ? "node" // expanded package
+            :
+            "post"; // leaf node
     }
 
-    function ispost(d){
-        return d._children ? "circle" // collapsed package
-            : d.children ? "circle" // expanded package
-            : "circle" // leaf node
+    function returntext(d){
+        return d._children ? d.name // collapsed package
+            :
+            d.children ? d.name // expanded package
+            :
+            ""; // leaf node
+    }
+
+    function dataid(d){
+        return d._children ? -1// collapsed package
+            :
+            d.children ? -1 // expanded package
+            :
+            d.id; // leaf node
     }
 
     // Toggle children on click.
     function click(d) {
-      if (d3.event.defaultPrevented) return; // ignore drag
-      if (d.children) {
-        d._children = d.children;
-        d.children = null;
-      } else {
-        d.children = d._children;
-        d._children = null;
-      }
-      update();
+        if (d3.event.defaultPrevented) return; // ignore drag
+        if (d.children) {
+            d._children = d.children;
+            d.children = null;
+        } else {
+            d.children = d._children;
+            d._children = null;
+        }
+        removePosts();
+        update();
     }
 
     // Returns a list of all nodes under the root.
     function flatten(root) {
-      var nodes = [], i = 0;
+        var nodes = [],
+            i = 0;
 
-      function recurse(node) {
-        if (node.children) node.children.forEach(recurse);
-        if (!node.id) node.id = ++i;
-        nodes.push(node);
-      }
+        function recurse(node) {
+            if (node.children) node.children.forEach(recurse);
+            if (!node.id) node.id = ++i;
+            nodes.push(node);
+        }
 
-      recurse(root);
-      return nodes;
+        recurse(root);
+        return nodes;
     }
 
 })
 
-function showPosts(){
-    $.each($('div#chart .post'), function(k, v){
+function showPosts() {
+    $.each($('div#chart .post'), function(k, v) {
 
         var pos = $(v)[0].getAttribute('transform');
         var result = pos.split(',');
@@ -145,12 +170,44 @@ function showPosts(){
 
         // $('.postblock').text("{'top': "+ xpos + ", 'left': " + ypos + "}");
         // $('.postblock').css({'top': xpos + "px", 'left': ypos + "px"});
+        var isAdded = false;
 
-        $.each($('div#chart .postblock'), function(kp, vp){
-            if($(vp).attr('data-id') == $(v).attr('data-id')){
-                $(vp).css({'top': xpos + "px", 'left': ypos + "px"});
+        $.each($('div#chart .postblock'), function(kp, vp) {
+            if ($(vp).attr('data-id') == $(v).attr('data-id')) {
+                $(vp).css({
+                    'top': ypos - 200 + "px",
+                    'left': xpos - 200 + "px"
+                });
+
+                // $(vp).attr('transform', pos);
+                isAdded = true;
             }
 
         })
+
+        if(!isAdded){
+            $('#chart').append('<div class="postblock" data-id="' + $(v).attr('data-id') + '" style="top: ' + xpos + '; left:' + ypos + ';"></div>');
+        }
+    })
+
+    removePosts();
+}
+
+function removePosts(){
+    $.each($('div#chart .postblock'), function(k, v) {
+
+        var isAdded = false;
+
+        $.each($('div#chart .post'), function(kp, vp) {
+            if ($(vp).attr('data-id') == $(v).attr('data-id')) {
+
+                isAdded = true;
+            }
+
+        })
+
+        if(!isAdded){
+            $(v).remove();
+        }
     })
 }
