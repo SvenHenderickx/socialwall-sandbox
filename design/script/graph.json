@@ -7,14 +7,17 @@
             {
                 "name": "AgglomerativeCluster",
                 "size": 3938
+
             },
             {
                 "name": "CommunityStructure",
                 "size": 3812
+
             },
             {
                 "name": "HierarchicalCluster",
                 "size": 671
+
             }
             ]
         },
@@ -24,14 +27,17 @@
             {
                 "name": "AgglomerativeCluster",
                 "size": 3938
+
             },
             {
                 "name": "CommunityStructure",
                 "size": 3812
+
             },
             {
                 "name": "HierarchicalCluster",
                 "size": 671
+
             }
             ]
         },
@@ -41,16 +47,18 @@
             {
                 "name": "AgglomerativeCluster",
                 "size": 3938
+
             },
             {
                 "name": "CommunityStructure",
                 "size": 3812
+
             },
             {
                 "name": "HierarchicalCluster",
                 "size": 671
+
             }
             ]
         }
-    ]
 }

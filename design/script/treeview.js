@@ -329,6 +329,8 @@ $(document).ready(function() {
         var nodes = flatten(root),
             links = d3.layout.tree().links(nodes);
 
+        console.log(nodes);
+
         // Restart the force layout.
         force
             .nodes(nodes)
