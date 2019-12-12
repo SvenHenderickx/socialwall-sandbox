@@ -12,7 +12,7 @@ var twitterCounter = 0;
 var maxPostsPerChannel = 10;
 var maxPostTotal = 20;
 
-function getFacebookPosts(){
+function getFacebookPostsL(){
     $.ajaxSetup({ cache: true });
       $.getScript('https://connect.facebook.net/en_US/sdk.js', function(){
         FB.init({
@@ -36,6 +36,25 @@ function getFacebookPosts(){
         );
 
     });
+}
+
+function getFacebookPosts(){
+    $.ajax({
+        url: 'php/facebookposts.php',
+        type: "GET",
+        success: function(data)
+        {
+            data = JSON.parse(data);
+            console.log(data);
+            facebookPosts = data;
+            facebookLoaded = true;
+        },
+        error: function (xhr, ajaxOptions, thrownError)
+        {
+            var errorMsg = 'Ajax request failed: ' + xhr.responseText;
+            console.log(errorMsg, thrownError);
+        }
+    })
 }
 
 function getInstagramPosts(){
@@ -63,9 +82,6 @@ function getTwitterPosts(){
     $.ajax({
         url: 'php/twitterposts.php',
         type: "GET",
-        data: {
-            name: 'HenderickxSven'
-        },
         success: function(data)
         {
             data = JSON.parse(data);
