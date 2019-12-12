@@ -20,7 +20,7 @@ function getFacebookPosts(){
           version: 'v5.0'
         });
 
-        var token = 'EAAHhL56iioMBALFRgAZBlJvhGJoYlE83fhnlZBSnPXGZBmOXDELpP4A3pcpaV98BfcWXYUFZAbMZBDKrRjaQf09fdPoj16drrwvGV4TbfWRZCAVZC33gsoa9ZCdOZAHRtSJCRLaZAaI7UBMJmirwZBF6bPlUZCMh3ajMZC3POeg2ZCeB5hpysG6BFgj3ytSFjHFbHX8uonuDHx7ZA4otHWeZAnMucTuBMPkopvnXCagGJjxnoYbAtQZDZD';
+        var token = 'EAAHhL56iioMBAHZCli26ZBevkNpjbP0RAzoc4NmXm71cWdIRjtUEjXVDgJILge6POZAcqjC3fjzkVs1wyLd6FgwwfuZAXMjwr76DdDAZArCVRfF0ZBPZCCeNyN0e3bsUZAdgAkEN29wcMvg4Ms1s0olXWc09xj4EZCqlXCxNNZBtrwQhjeR8Aq3OiVCDzUaU4LAFnfT2M6HXGMc1g8tbPeHdlZBU2Rhrjt92nh899LXkhXiSQZDZD';
 
         var pageid = '362165877144004';
 
@@ -71,7 +71,6 @@ function getTwitterPosts(){
             data = JSON.parse(data);
             twitterPosts = data;
             twitterLoaded = true;
-            // console.log(twitterPosts);
         },
         error: function (xhr, ajaxOptions, thrownError)
         {
