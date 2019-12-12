@@ -12,30 +12,50 @@ var twitterCounter = 0;
 var maxPostsPerChannel = 10;
 var maxPostTotal = 20;
 
-function getFacebookPostsL(){
-    $.ajaxSetup({ cache: true });
-      $.getScript('https://connect.facebook.net/en_US/sdk.js', function(){
-        FB.init({
-          appId:'529069617875587',
-          version: 'v5.0'
-        });
+// function getFacebookPostsL(){
+//     $.ajaxSetup({ cache: true });
+//       $.getScript('https://connect.facebook.net/en_US/sdk.js', function(){
+//         FB.init({
+//           appId:'529069617875587',
+//           version: 'v5.0'
+//         });
+//
+//         var token = 'EAAHhL56iioMBAHZCli26ZBevkNpjbP0RAzoc4NmXm71cWdIRjtUEjXVDgJILge6POZAcqjC3fjzkVs1wyLd6FgwwfuZAXMjwr76DdDAZArCVRfF0ZBPZCCeNyN0e3bsUZAdgAkEN29wcMvg4Ms1s0olXWc09xj4EZCqlXCxNNZBtrwQhjeR8Aq3OiVCDzUaU4LAFnfT2M6HXGMc1g8tbPeHdlZBU2Rhrjt92nh899LXkhXiSQZDZD';
+//
+//         var pageid = '362165877144004';
+//
+//         FB.api(
+//               '/me',
+//               'GET',
+//               { access_token : token,
+//                   "fields":"posts{source,full_picture,message,description,created_time}"},
+//                 function(response) {
+//                   facebookPosts = response;
+//                   facebookLoaded = true;
+//               }
+//         );
+//
+//     });
+// }
 
-        var token = 'EAAHhL56iioMBAHZCli26ZBevkNpjbP0RAzoc4NmXm71cWdIRjtUEjXVDgJILge6POZAcqjC3fjzkVs1wyLd6FgwwfuZAXMjwr76DdDAZArCVRfF0ZBPZCCeNyN0e3bsUZAdgAkEN29wcMvg4Ms1s0olXWc09xj4EZCqlXCxNNZBtrwQhjeR8Aq3OiVCDzUaU4LAFnfT2M6HXGMc1g8tbPeHdlZBU2Rhrjt92nh899LXkhXiSQZDZD';
+function getTwitterPosts(){
 
-        var pageid = '362165877144004';
-
-        FB.api(
-              '/me',
-              'GET',
-              { access_token : token,
-                  "fields":"posts{source,full_picture,message,description,created_time}"},
-                function(response) {
-                  facebookPosts = response;
-                  facebookLoaded = true;
-              }
-        );
-
-    });
+    $.ajax({
+        url: 'php/twitterposts.php',
+        type: "GET",
+        success: function(data)
+        {
+            data = JSON.parse(data);
+            twitterPosts = data;
+            twitterLoaded = true;
+        },
+        error: function (xhr, ajaxOptions, thrownError)
+        {
+            $(input).text('Mislukt.');
+            var errorMsg = 'Ajax request failed: ' + xhr.responseText;
+            console.log(errorMsg);
+        }
+    })
 }
 
 function getFacebookPosts(){
@@ -77,26 +97,6 @@ function getInstagramPosts(){
     userFeed.run();
 }
 
-function getTwitterPosts(){
-
-    $.ajax({
-        url: 'php/twitterposts.php',
-        type: "GET",
-        success: function(data)
-        {
-            data = JSON.parse(data);
-            twitterPosts = data;
-            twitterLoaded = true;
-        },
-        error: function (xhr, ajaxOptions, thrownError)
-        {
-            $(input).text('Mislukt.');
-            var errorMsg = 'Ajax request failed: ' + xhr.responseText;
-            console.log(errorMsg);
-        }
-    })
-}
-
 function checkVariable() {
    if (facebookLoaded && instaLoaded && twitterLoaded) {
        // $('#mixedfeed').empty();
@@ -113,9 +113,8 @@ function checkVariable() {
 
 function refreshPosts(){
     if (!facebookLoaded || !instaLoaded || !twitterLoaded) {
-        console.log('refreshPosts');
-        getFacebookPosts();
         getInstagramPosts();
+        getFacebookPosts();
         getTwitterPosts();
     }
 }

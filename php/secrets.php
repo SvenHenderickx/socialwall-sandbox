@@ -8,7 +8,10 @@ $twitteraccesstoken = "1189849599520968704-r5bluZ7TqpMDcxl0FjLvals11oeQEB";
 $twitteraccesstokensecret = "hTrdi4yyes8tsxRAHDYU8k5Duf9gh1ppI8JaPg2htw7Et";
 
 // Facebook
-$facebooksecret = 'EAAHhL56iioMBAPSCU2ZBvfJMIyaRUcEbM9r86M42WEQMUSHTGZBYlRzZBpNp36HoAbjY8EZAXNTXNCmMjL4TitKNkdJt1coHKBhrfJkGtaJieV7alLFOliEZCUk14jAqmf8q7rf4H74XrxERfXEdVkJXguKKOaqrOTcei6ILMzjf9fhcSPQG1tPHtvOvfLnB40j6NrBVZCEONMWsXNPlWp7sgrj5yW8SkEZBj2YMTlnSwZDZD';
+$facebooksecret = 'EAAHhL56iioMBACv3zOOqbkF297YBhAbWgtCEZCZBBTkS5ZBZC6KA5dr1bD4vrQoT0lfwDAYYwZCW2tdOCZBkHRyC5t2BfPY4xeg0MZCupRmh8fBUzlVEyt771pejZBZCjY67HMDfUtZC55uoEAlRX2axYvtVALJG9ccmJlQ9TfCSM5yeTDYglZCUFCZBcblOauv3UyZCvnC1vx7Uz3ILje1Ao6ZBUXIuRv8A77glAzuGiS5ESBcQZDZD';
+
+$facebookappid = '529069617875587';
+$facebookappsecret = '88ec56ddd78010eb24b0cb2e1d31997f';
 
 // Instagram
 $instagramsecret = '784297742.1677ed0.155b78eba16f4362a7e7599c297cdb8b';

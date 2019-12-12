@@ -26,8 +26,8 @@
             </div>
         </div>
 
-    <script type="text/javascript">
-
-    </script>
+        <?php
+        include 'php/facebookposts.php';
+         ?>
     </body>
 </html>
