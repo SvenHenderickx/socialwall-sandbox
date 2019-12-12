@@ -129,7 +129,7 @@ $(document).ready(function(){
 
 function showFeed(){
 
-    var mixedfeed = $.merge($.merge( [], instaPosts.data ), facebookPosts.posts.data );
+    var mixedfeed = $.merge($.merge( [], instaPosts.data ), facebookPosts.posts );
     mixedfeed = $.merge($.merge( [], twitterPosts ), mixedfeed );
 
     mixedfeed = mixedfeed.sort(SortByDate);

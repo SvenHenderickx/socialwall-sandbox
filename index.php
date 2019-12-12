@@ -25,9 +25,5 @@
 
             </div>
         </div>
-
-        <?php
-        include 'php/facebookposts.php';
-         ?>
     </body>
 </html>

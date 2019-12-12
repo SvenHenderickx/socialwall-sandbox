@@ -13,7 +13,7 @@ $fb = new \Facebook\Facebook([
 try {
   // Returns a `FacebookFacebookResponse` object
   $response = $fb->get(
-    '/me',
+    '/me?fields=posts{full_picture,source,message,description,created_time}',
     $facebooksecret
   );
 } catch(FacebookExceptionsFacebookResponseException $e) {
@@ -23,7 +23,7 @@ try {
   echo 'Facebook SDK returned an error: ' . $e->getMessage();
   exit;
 }
-$graphNode = $response->getGraphNode();
+$graphNode = $response->getGraphNode()->asArray();
 
 echo (json_encode($graphNode));
 
