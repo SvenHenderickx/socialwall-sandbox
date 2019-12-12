@@ -491,7 +491,7 @@ function showPosts() {
         })
 
         if(!isAdded){
-            $('#chart').append('<div class="postblock" data-id="' + $(v).attr('data-id') + '" style="top: ' + xpos + '; left:' + ypos + ';"></div>');
+            $('#chart').append('<div class="postblock" data-id="' + $(v).attr('data-id') + '" style="top: ' + xpos + '; left:' + ypos + ';"><h1>Social Media - Post</h1><p>Voorbeeld tekst</p></div>');
         }
     })
 

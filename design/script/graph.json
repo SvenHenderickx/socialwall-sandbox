@@ -1,64 +1,38 @@
 {
     "name": "FHICT",
-    "children": [
-        {
-        "name": "Instagram",
-        "children": [
-            {
-                "name": "AgglomerativeCluster",
-                "size": 3938
-
-            },
-            {
-                "name": "CommunityStructure",
-                "size": 3812
-
-            },
-            {
-                "name": "HierarchicalCluster",
-                "size": 671
-
-            }
+    "children": [{
+            "name": "Instagram",
+            "children": [{
+                    "name": "POST",
+                    "size": 7074
+                },
+                {
+                    "name": "POST",
+                    "size": 1
+                }
             ]
         },
         {
-        "name": "facebook",
-        "children": [
+            "name": "Facebook",
+            "children": [{
+                    "name": "POST",
+                    "size": 7074
+                },
+                {
+                    "name": "POST",
+                    "size": 1
+                }
+            ]},
             {
-                "name": "AgglomerativeCluster",
-                "size": 3938
-
-            },
-            {
-                "name": "CommunityStructure",
-                "size": 3812
-
-            },
-            {
-                "name": "HierarchicalCluster",
-                "size": 671
-
-            }
-            ]
-        },
-        {
-        "name": "twitter",
-        "children": [
-            {
-                "name": "AgglomerativeCluster",
-                "size": 3938
-
-            },
-            {
-                "name": "CommunityStructure",
-                "size": 3812
-
-            },
-            {
-                "name": "HierarchicalCluster",
-                "size": 671
-
-            }
-            ]
-        }
-}
+                "name": "Twitter",
+                "children": [{
+                        "name": "POST",
+                        "size": 7074
+                    },
+                    {
+                        "name": "POST",
+                        "size": 1
+                    }
+                ]}
+        ]
+    }
