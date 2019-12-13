@@ -1,7 +1,16 @@
 var facex = 0;
 var facey = 0;
 
+var width;
+var height;
+var timerSeen = 0;
+var timerNotseen = 0;
+var seenPerson = false;
+
 $(document).ready(function(){
+
+    width = $('body').width();
+    height = $('body').height();
 
     // Set the BRFv5 library name here, also set your own appId for reference.
 
@@ -181,7 +190,7 @@ $(document).ready(function(){
 
             facex = (facex / _width) * width;
             facey = (facey / _height) * height;
-
+            $('#facepoint').show();
             $('#facepoint').css(
                 {
                     'top': facey + "px",
@@ -189,10 +198,22 @@ $(document).ready(function(){
                 }
             );
 
+            if(!seenPerson){
+                seePerson();
+            }
+            else{
+                seenPerson = true;
+            }
             // console.log(facex);
 
           } else {
 
+            if(timerNotseen){
+                clearTimeout(timerNotseen);
+            }
+            timerNotseen = setTimeout(function(){ seenPerson = false }, 5 * 1000);
+
+            $('#facepoint').hide();
             doDrawFaceDetection = true
           }
         }
@@ -300,3 +321,18 @@ $(document).ready(function(){
         (((color) & 0xff).toString(10)) + ', ' + alpha +')'
     }
 })
+
+function seePerson(){
+    // alert('PERSON');
+    seenPerson = true;
+    showPopUpHelp();
+    setTimeout(removePopUp, 5000);
+}
+
+function showPopUpHelp(){
+    $('body').append('<div class="popup_wrapper"><div class="popup_container"><p>Gebruik je gezicht om een item te selecteren. LACHEN!</p></div></div>');
+}
+
+function removePopUp(){
+    $('.popup_wrapper').remove();
+}
