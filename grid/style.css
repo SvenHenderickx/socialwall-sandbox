@@ -316,6 +316,7 @@ body {
     justify-content: space-between;
     opacity: 1;
     margin-top: 0;
+    align-items: stretch;
 }
 
 .tweet2 {
@@ -361,10 +362,37 @@ body {
     margin-top: 3%;
     height: 100%;
     box-sizing: border-box;
-    padding: 2% 30px;
+    padding: 2% 30px 0 30px;
     border-radius: 5px;
     border: 1px solid #cbcbcb;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     -webkit-box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+}
+
+.wall-2-youtube img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.yt-left {
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    margin-right: 3%;
+}
+
+.yt-right {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.yt-right h1 {
+    margin-bottom: 2%;
 }
 
 .hidden {
@@ -384,4 +412,33 @@ body {
     margin-top: -5%;
     opacity: 0;
     transition: margin-top 2s, opacity 2s;
+}
+
+#full2 {
+    background: #0c0c0c;
+    z-index: -1;
+    justify-content: flex-start;
+    overflow: hidden;
+}
+
+.wall-3-container {
+    width: 100%;
+    box-sizing: border-box;
+    height: 100%;
+    padding: 60px;
+    position: absolute;
+}
+
+#full2 iframe {
+    margin-top: -5%;
+}
+
+.stretcher {
+    height: 105%;
+    width: 100%;
+}
+
+.yt-right img {
+    width: 60%;
+    margin-top: 5%;
 }
