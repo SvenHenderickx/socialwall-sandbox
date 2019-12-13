@@ -20,7 +20,7 @@ Ik gebruik deze library nu alleen om de pure JSON van de instagram posts te ontv
 ## Twitter API - Twitter
 **URL:** [Twitter Developer](https://developer.twitter.com/)
 
-Hiervoor heb ik mij opgegeven voor een developer account, deze moet nog worden goedgekeurd. Wanneer deze is goedgekeurd kan ik de Twitter API aanroepen voor de tweets te ontvangen in JSON-formaat.
+Voor de Twitter API heb ik een werkende cUrl die de posts in JSON formaat ophaalt van de Twitter API.
 
 ## Facebook API - Facebook
 **URL:** [Facebook Graph API](https://developers.facebook.com/tools/explorer/)
@@ -28,4 +28,4 @@ Hiervoor heb ik mij opgegeven voor een developer account, deze moet nog worden g
 Voor het Facebook API heb ik een Facebook developer account aangemaakt. Hiermee kun je direct de posts etc krijgen van Facebook in een JSON formaat.
 
 #### Opmerking
-Facebook API werkt nu nog niet omdat hij een foutmelding blijft geven bij de acces_token.
+Ik moet deze nog herschrijven zodat het veiliger is dan via Javascript. Momenteel ben ik bezig met een PHP cUrl voor facebook.

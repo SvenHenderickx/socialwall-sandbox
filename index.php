@@ -9,6 +9,7 @@
     </head>
     <body>
 
+
         <div class="container">
             <h1>Social Wall - FHICT</h1>
 
@@ -24,9 +25,5 @@
 
             </div>
         </div>
-
-    <script type="text/javascript">
-
-    </script>
     </body>
 </html>

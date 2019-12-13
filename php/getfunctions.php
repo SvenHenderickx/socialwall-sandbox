@@ -1,5 +1,7 @@
 <?php
 
+    include 'secrets.php';
+
     if(!isset($_POST['name'])){
         echo 'not set';
         exit();

@@ -12,30 +12,43 @@ var twitterCounter = 0;
 var maxPostsPerChannel = 10;
 var maxPostTotal = 20;
 
+function getTwitterPosts(){
+
+    $.ajax({
+        url: 'php/twitterposts.php',
+        type: "GET",
+        success: function(data)
+        {
+            data = JSON.parse(data);
+            twitterPosts = data;
+            twitterLoaded = true;
+        },
+        error: function (xhr, ajaxOptions, thrownError)
+        {
+            $(input).text('Mislukt.');
+            var errorMsg = 'Ajax request failed: ' + xhr.responseText;
+            console.log(errorMsg);
+        }
+    })
+}
+
 function getFacebookPosts(){
-    $.ajaxSetup({ cache: true });
-      $.getScript('https://connect.facebook.net/en_US/sdk.js', function(){
-        FB.init({
-          appId:'529069617875587',
-          version: 'v5.0'
-        });
-
-        var token = 'EAAHhL56iioMBALFRgAZBlJvhGJoYlE83fhnlZBSnPXGZBmOXDELpP4A3pcpaV98BfcWXYUFZAbMZBDKrRjaQf09fdPoj16drrwvGV4TbfWRZCAVZC33gsoa9ZCdOZAHRtSJCRLaZAaI7UBMJmirwZBF6bPlUZCMh3ajMZC3POeg2ZCeB5hpysG6BFgj3ytSFjHFbHX8uonuDHx7ZA4otHWeZAnMucTuBMPkopvnXCagGJjxnoYbAtQZDZD';
-
-        var pageid = '362165877144004';
-
-        FB.api(
-              '/me',
-              'GET',
-              { access_token : token,
-                  "fields":"posts{source,full_picture,message,description,created_time}"},
-                function(response) {
-                  facebookPosts = response;
-                  facebookLoaded = true;
-              }
-        );
-
-    });
+    $.ajax({
+        url: 'php/facebookposts.php',
+        type: "GET",
+        success: function(data)
+        {
+            data = JSON.parse(data);
+            console.log(data);
+            facebookPosts = data;
+            facebookLoaded = true;
+        },
+        error: function (xhr, ajaxOptions, thrownError)
+        {
+            var errorMsg = 'Ajax request failed: ' + xhr.responseText;
+            console.log(errorMsg, thrownError);
+        }
+    })
 }
 
 function getInstagramPosts(){
@@ -58,30 +71,6 @@ function getInstagramPosts(){
     userFeed.run();
 }
 
-function getTwitterPosts(){
-
-    $.ajax({
-        url: 'php/twitterposts.php',
-        type: "GET",
-        data: {
-            name: 'HenderickxSven'
-        },
-        success: function(data)
-        {
-            data = JSON.parse(data);
-            twitterPosts = data;
-            twitterLoaded = true;
-            // console.log(twitterPosts);
-        },
-        error: function (xhr, ajaxOptions, thrownError)
-        {
-            $(input).text('Mislukt.');
-            var errorMsg = 'Ajax request failed: ' + xhr.responseText;
-            console.log(errorMsg);
-        }
-    })
-}
-
 function checkVariable() {
    if (facebookLoaded && instaLoaded && twitterLoaded) {
        // $('#mixedfeed').empty();
@@ -98,9 +87,8 @@ function checkVariable() {
 
 function refreshPosts(){
     if (!facebookLoaded || !instaLoaded || !twitterLoaded) {
-        console.log('refreshPosts');
-        getFacebookPosts();
         getInstagramPosts();
+        getFacebookPosts();
         getTwitterPosts();
     }
 }
@@ -115,7 +103,7 @@ $(document).ready(function(){
 
 function showFeed(){
 
-    var mixedfeed = $.merge($.merge( [], instaPosts.data ), facebookPosts.posts.data );
+    var mixedfeed = $.merge($.merge( [], instaPosts.data ), facebookPosts.posts );
     mixedfeed = $.merge($.merge( [], twitterPosts ), mixedfeed );
 
     mixedfeed = mixedfeed.sort(SortByDate);
@@ -157,6 +145,7 @@ function addToFeed(feedObject){
         var caption = '';
         var imagesrc = '';
 
+
         if(feedObject.caption !== null){
             caption = "<p>" + instaCounter + ' - ' + feedObject.caption.text + "</p>";
         }
@@ -169,13 +158,14 @@ function addToFeed(feedObject){
         date = '<small>' + date + '</small>'
 
         $('#mixedfeed').append('<div class="facebook_wrapper instagram">' + imagesrc + ' ' + caption + '</div>');
-        console.log('added ' + caption);
+        // console.log('added ' + caption);
     }
 
     if(checkSort(feedObject) == 'facebook' && facebookCounter < maxPostsPerChannel){
         var caption = '';
         var imagesrc = '';
-        // console.log(value);
+        console.log('add facebook');
+        console.log(feedObject);
 
         $.each(feedObject, function(k, v){
             if(k == 'message'){
@@ -193,7 +183,7 @@ function addToFeed(feedObject){
             facebookCounter++;
 
             $('#mixedfeed').append('<div class="facebook_wrapper facebook">' + imagesrc + caption + '</div>');
-            console.log('added ' + caption);
+            // console.log('added ' + caption);
 
         }
 
@@ -221,7 +211,7 @@ function addToFeed(feedObject){
         date = '<small>' + date + '</small>';
 
         $('#mixedfeed').append('<div class="facebook_wrapper twitter">' + imagesrc + ' ' + caption + '</div>');
-        console.log('added ' + caption);
+        // console.log('added ' + caption);
 
     }
 }
@@ -258,8 +248,7 @@ function getDate(feedObject){
         // console.log(a.created_time);
     }
     else if(checkSort(feedObject) == 'facebook'){
-        return timeA = new Date(feedObject.created_time);
-        // console.log(a.created_time);
+        return timeA = new Date(feedObject.created_time.date);
     }
     else if(checkSort(feedObject) == 'twitter'){
         if($.isArray(feedObject) && feedObject.length > 1){
