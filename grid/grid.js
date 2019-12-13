@@ -19,8 +19,6 @@ window.onload = function () {
 
     channelsin();
     tweetsin();
-    setInterval(channelsin, 10000);
-    setInterval(tweetsin, 10000);
 
     function channelsin() {
         youtube.style.marginTop = "0";
@@ -74,22 +72,59 @@ window.onload = function () {
         instawall2.style.opacity = "0";
     }
 
-    setTimeout(scrolldown, 5000);
+    setTimeout(scrolldown, 10000);
+
+    // timeouts
+
+    let channelout;
+    let channelin;
+    let tweetout;
+    let tweet2in;
+    let downscroll;
+    let tweet2out;
+    let upscroll;
+    let tweetin;
 
     function scrolldown() {
-        setTimeout(channelsout, 500);
-        setTimeout(tweetsout, 500);
-        setTimeout(tweets2in, 500);
+        channelout = setTimeout(channelsout, 500);
+        tweetout = setTimeout(tweetsout, 500);
+        tweet2in = setTimeout(tweets2in, 500);
         $('html, body').animate({
             scrollTop: $("#full1").offset().top});
-        setTimeout(scrollup, 5000);
+        upscroll = setTimeout(scrollup, 10000);
     }
 
     function scrollup() {
-        setTimeout(tweets2out, 500);
+        tweet2out = setTimeout(tweets2out, 500);
         $('html, body').animate({
             scrollTop: $("#full0").offset().top});
-        setTimeout(scrolldown, 5000);
+        downscroll = setTimeout(scrolldown, 10000);
+        channelin = setTimeout(channelsin, 500);
+        tweetin = setTimeout(tweetsin, 500);
     }
+
+    function watchvid() {
+        $('html, body').animate({
+            scrollTop: $("#full2").offset().top});
+    }
+
+    hotkeys('right,down', function (event, handler){
+        switch (handler.key) {
+            case 'right':
+                document.getElementById('vidplayer').innerHTML = "    <iframe width=\"100%\" height=\"115%\" src=\"https://www.youtube.com/embed/rAAFSl9Gsn0?autoplay=1&showinfo=0\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>\n";
+                clearTimeout(channelout);
+                clearTimeout(tweetout);
+                clearTimeout(tweet2in);
+                clearTimeout(downscroll);
+                clearTimeout(tweet2out);
+                clearTimeout(upscroll);
+                watchvid();
+                break;
+            case 'down':
+                scrolldown();
+                break;
+            default: alert(event);
+        }
+    });
 
 };
