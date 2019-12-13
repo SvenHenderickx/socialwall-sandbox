@@ -6,6 +6,171 @@ var height;
 var timerSeen = 0;
 var timerNotseen = 0;
 var seenPerson = false;
+var smileFactor;
+
+ const toDegree = (x)       => { return (x * 180.0 / Math.PI); }
+ const toRadian = (x)       => { return (x * Math.PI / 180.0); }
+ const length   = (x, y)    => { return Math.sqrt((x * x) + (y * y)); };
+ const distance = (p0, p1)  => { return length((p1.x - p0.x), (p1.y - p0.y)); };
+ const angle    = (p0, p1)  => { return Math.atan2((p1.y - p0.y), (p1.x - p0.x)) };
+
+ const setPointFromVertices = (v, i, p) => {
+
+  p.x = v[i * 2]
+  p.y = v[i * 2 + 1]
+}
+
+ const applyMovementVector = (p, p0, pmv, f) => {
+
+  p.x = p0.x + pmv.x * f
+  p.y = p0.y + pmv.y * f
+}
+
+ const interpolatePoint = (p, p0, p1, f) => {
+
+  p.x = p0.x + f * (p1.x - p0.x)
+  p.y = p0.y + f * (p1.y - p0.y)
+}
+
+ const getAveragePoint = (p, ar) => {
+
+  p.x = 0.0
+  p.y = 0.0
+
+  for(let i = 0; i < ar.length; i++) {
+
+    p.x += ar[i].x;
+    p.y += ar[i].y;
+  }
+
+  p.x /= ar.length
+  p.y /= ar.length;
+}
+
+ const getMovementVector = (p, p0, p1, f) => {
+
+  p.x = f * (p1.x - p0.x)
+  p.y = f * (p1.y - p0.y)
+}
+
+ const getMovementVectorOrthogonalCW = (p, p0, p1, f) => {
+
+  getMovementVector(p, p0, p1, f)
+
+  const x = p.x
+  const y = p.y
+
+  p.x = -y
+  p.y = x
+}
+
+ const getMovementVectorOrthogonalCCW = (p, p0, p1, f) => {
+
+  getMovementVector(p, p0, p1, f)
+
+  const x = p.x
+  const y = p.y
+
+  p.x = y
+  p.y = -x
+}
+
+ const getIntersectionPoint = (p, pk0, pk1, pg0, pg1) => {
+
+  //y1 = m1 * x1  + t1 ... y2 = m2 * x2 + t1
+  //m1 * x  + t1 = m2 * x + t2
+  //m1 * x - m2 * x = (t2 - t1)
+  //x * (m1 - m2) = (t2 - t1)
+
+  let dx1 = (pk1.x - pk0.x); if(dx1 === 0) dx1 = 0.01;
+  let dy1 = (pk1.y - pk0.y); if(dy1 === 0) dy1 = 0.01;
+
+  let dx2 = (pg1.x - pg0.x); if(dx2 === 0) dx2 = 0.01;
+  let dy2 = (pg1.y - pg0.y); if(dy2 === 0) dy2 = 0.01;
+
+  const m1 = dy1 / dx1
+  const t1 = pk1.y - m1 * pk1.x
+
+  const m2 = dy2 / dx2
+  const t2 = pg1.y - m2 * pg1.x
+
+  let m1m2 = (m1 - m2); if(m1m2 === 0) m1m2 = 0.01;
+  let t2t1 = (t2 - t1); if(t2t1 === 0) t2t1 = 0.01;
+
+  const px = t2t1 / m1m2
+  const py = m1 * px + t1
+
+  p.x = px
+  p.y = py
+}
+
+
+// end geom
+//
+
+// import { distance, setPointFromVertices } from './utils__geom.js'
+
+const _p0 = { x: 0, y: 0 }
+const _p1 = { x: 0, y: 0 }
+
+// Returns a 'smileFactor' between 0.0 ... 1.0
+// Works with 68l and 42l models.
+ const detectSmile = (face) => {
+
+  const vertices = face.vertices
+  const is68lModel = vertices.length === 68 * 2 || vertices.length === 74 * 2
+
+  if(is68lModel) {
+
+    setPointFromVertices(vertices, 48, _p0); // mouth corner left
+    setPointFromVertices(vertices, 54, _p1); // mouth corner right
+
+  } else { // 42l model
+
+    setPointFromVertices(vertices, 40, _p0); // mouth corner left
+    setPointFromVertices(vertices, 41, _p1); // mouth corner right
+  }
+
+  let mouthWidth = distance(_p0, _p1);
+
+  if(is68lModel) {
+
+    setPointFromVertices(vertices, 36, _p1); // left eye outer corner
+    setPointFromVertices(vertices, 45, _p0); // right eye outer corner
+
+  } else { // 42l model
+
+    setPointFromVertices(vertices, 36, _p1); // left eye outer corner
+    setPointFromVertices(vertices, 39, _p0); // right eye outer corner
+
+    mouthWidth /= 0.8
+  }
+
+  const eyeDist = distance(_p0, _p1);
+
+  smileFactor = mouthWidth / eyeDist;
+
+  const rotX     = face.rotationX < 0.0 ? face.rotationX : 0.0
+  const percRotX = Math.abs(rotX) / 25.0
+
+  smileFactor -= (0.60 + percRotX * 0.14); // 0.60 - neutral, 0.70 smiling
+
+  if(smileFactor > 0.125) smileFactor = 0.125;
+  if(smileFactor < 0.000) smileFactor = 0.000;
+
+  smileFactor *= 8.0;
+
+  if(smileFactor < 0.0) { smileFactor = 0.0; }
+  if(smileFactor > 1.0) { smileFactor = 1.0; }
+
+  return smileFactor;
+};
+
+ // default { detectSmile }
+
+// end smile detect
+
+// import { detectSmile }                      from '../utils/utils__smile_detection.js'
 
 $(document).ready(function(){
 
@@ -204,7 +369,8 @@ $(document).ready(function(){
             else{
                 seenPerson = true;
             }
-            // console.log(facex);
+            console.log(smileFactor);
+
 
           } else {
 
