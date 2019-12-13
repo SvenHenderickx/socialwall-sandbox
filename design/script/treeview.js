@@ -105,6 +105,7 @@ $(document).ready(function() {
 
        brfv5Config.faceDetectionConfig.minFaceSize = 144 * sizeFactor
        brfv5Config.faceDetectionConfig.maxFaceSize = 480 * sizeFactor
+       brfv5Config.faceTrackingConfig.numFacesToTrack = 2
 
        if(imageWidth < imageHeight) {
 
@@ -136,7 +137,7 @@ $(document).ready(function() {
        brfv5Config.faceTrackingConfig.enableFreeRotation       = true
        brfv5Config.faceTrackingConfig.maxRotationZReset        = 999.0
 
-       brfv5Config.faceTrackingConfig.numFacesToTrack          = 1
+       brfv5Config.faceTrackingConfig.numFacesToTrack          = 2-
        brfv5Config.enableFaceTracking                          = true
 
        console.log('configureTracking:', _brfv5Config)
@@ -175,7 +176,7 @@ $(document).ready(function() {
            drawRect(ctx, _brfv5Config.faceTrackingConfig.regionOfInterest, '#00a0ff', 2.0)
 
            drawCircles(ctx, face.landmarks, '#00a0ff', 2.0 * sizeFactor)
-           drawRect(ctx, face.bounds, '#ffffff', 1.0)
+           drawRect(ctx, face.bounds, '#ff0000', 3.0)
            facex = face.landmarks[27].x;
            facey = face.landmarks[27].y;
 
@@ -214,8 +215,8 @@ $(document).ready(function() {
 
      console.log('openCamera: done: ' + width + 'x' + height)
 
-     _width            = width
-     _height           = height
+     _width            = window.innerWidth
+     _height           = window.innerWidth / 640 * 480
 
      _imageData.width  = _width
      _imageData.height = _height
