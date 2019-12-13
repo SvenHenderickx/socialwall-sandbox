@@ -442,3 +442,43 @@ body {
     width: 60%;
     margin-top: 5%;
 }
+
+#facepoint {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    /* background-color: red; */
+    position: absolute;
+    z-index: 1000;
+    display: none;
+}
+
+#facepoint::before {
+    content: '';
+  background:url('cursor.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 50px;
+  height: 50px;
+  display: block;
+}
+
+.popup_wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, .1);
+}
+
+.popup_container {
+    background-color: white;
+    padding: 20px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, .3);
+    border-radius: 5px;
+}

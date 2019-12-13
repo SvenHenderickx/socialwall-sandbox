@@ -1,3 +1,5 @@
+// var minHeight = 0;
+
 window.onload = function () {
 
     let tweet1 = document.getElementById('tweets');
@@ -92,6 +94,9 @@ window.onload = function () {
         $('html, body').animate({
             scrollTop: $("#full1").offset().top});
         upscroll = setTimeout(scrollup, 10000);
+
+        minHeight += $('#full1').height();
+        console.log('minheigt = ' + minHeight);
     }
 
     function scrollup() {
@@ -101,6 +106,7 @@ window.onload = function () {
         downscroll = setTimeout(scrolldown, 10000);
         channelin = setTimeout(channelsin, 500);
         tweetin = setTimeout(tweetsin, 500);
+        minHeight -= $('#full1').height();
     }
 
     function watchvid() {
