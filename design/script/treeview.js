@@ -137,7 +137,7 @@ $(document).ready(function() {
        brfv5Config.faceTrackingConfig.enableFreeRotation       = true
        brfv5Config.faceTrackingConfig.maxRotationZReset        = 999.0
 
-       brfv5Config.faceTrackingConfig.numFacesToTrack          = 2-
+       brfv5Config.faceTrackingConfig.numFacesToTrack          = 2
        brfv5Config.enableFaceTracking                          = true
 
        console.log('configureTracking:', _brfv5Config)
