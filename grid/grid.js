@@ -114,7 +114,7 @@ window.onload = function () {
             scrollTop: $("#full2").offset().top});
     }
 
-    hotkeys('right,down', function (event, handler){
+    hotkeys('right,down,left', function (event, handler){
         switch (handler.key) {
             case 'right':
                 document.getElementById('vidplayer').innerHTML = "    <iframe width=\"100%\" height=\"115%\" src=\"https://www.youtube.com/embed/rAAFSl9Gsn0?autoplay=1&showinfo=0\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>\n";
@@ -129,8 +129,21 @@ window.onload = function () {
             case 'down':
                 scrolldown();
                 break;
+            case 'left':
+
+                let cursor = document.getElementById('facepoint');
+
+
+                if (cursor.offsetLeft > 650 && cursor.offsetTop > 150) {
+                    document.getElementById('vid-desc').style.background = "#000";
+                }
+
+                console.log('left: ' + cursor.offsetLeft);
+                console.log('top: ' + cursor.offsetTop);
+                break;
             default: alert(event);
         }
     });
+
 
 };

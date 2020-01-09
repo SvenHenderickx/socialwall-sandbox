@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Control Panel</title>
+    <link rel="stylesheet" href="control-style.css">
+    <script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
+</head>
+<body>
+
+<div class="top-bar">
+
+    <div class="name">Control Panel</div>
+
+    <div class="menu">
+
+        <div class="menu-item" id="showmarquee">Marquee</div>
+        <div class="menu-item" id="showvideo">Video</div>
+        <div class="menu-item" id="showsocials">Socials</div>
+
+    </div>
+
+</div>
+
+<div class="video-editor" id="video-editor">
+
+    <div class="wrapper">
+
+        <h1>Update video</h1>
+
+        <h4>
+            <img src="img/information.png">
+            Voer hieronder de URL in die hoort bij de video je wilt laten zien.
+        </h4>
+
+        <input type="text" id="video-url" placeholder="bijv: https://youtu.be/Am_yEDoTSSU">
+
+        <div class="button" id="submit-vid">Update</div>
+
+    </div>
+
+</div>
+
+<div class="marquee-editor" id="marquee-editor">
+
+<div class="live-preview">
+
+    <marquee id="marquee"></marquee>
+
+</div>
+
+<div class="wrapper">
+
+    <h1>Update marquee</h1>
+
+    <h4>
+        <img src="img/information.png">
+        Voer hieronder de tekst in die voorbij moet komen in de marquee.
+    </h4>
+
+    <textarea name="editor1" id="marqueei" rows="5" cols="80">
+            </textarea>
+
+    <div class="button" id="submit">Update</div>
+
+</div>
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-analytics.js"></script>
+
+<script src="control.js"></script>
+
+</body>
+</html>

@@ -76,7 +76,7 @@
 
             <iframe width="50%" height="100%" src="https://www.youtube.com/embed/rAAFSl9Gsn0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-            <div class="video-description">
+            <div class="video-description" id="vid-desc">
 
                 <h2>TIPS - Virtual Reality & Augmented Reality VR&AR</h2>
 
@@ -158,7 +158,7 @@
 
     <img src="img/info-button.png">
 
-    <marquee direction="left">
+    <marquee direction="left" id="scroller1">
         Twitter - Veel belangstelling voor openbaar college ‘Met technologie meer mens?’ Interessant verhaal door lectoren Mark de Graaf en Eveline Wouters. #TecforSociety #FontysforSociety - Met Make IT Work, hét ICT omscholingstraject voor hoogopgeleiden, aanwezig op De Nederlandse Carrièredagen. Meer weten: http://it-omscholing.nl en http://carrierebeurs.nl/de-nederlandse-carrieredagen/item12 … -     </marquee>
 
 </div>
@@ -297,7 +297,14 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
+<script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-analytics.js"></script>
+
 <script src="grid.js"></script>
+<script src="cms.js"></script>
 <video  id="_webcam" style="display: none;" playsinline></video>
 <canvas id="_imageData" style="display: none"></canvas>
 <div id="facepoint"></div>
