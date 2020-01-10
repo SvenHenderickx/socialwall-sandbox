@@ -1,5 +1,3 @@
-var facex = 0;
-var facey = 0;
 
 var width;
 var height;

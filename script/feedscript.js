@@ -72,11 +72,11 @@ function getInstagramPosts(){
 }
 
 function checkVariable() {
-   if (facebookLoaded && instaLoaded && twitterLoaded) {
+   if (instaLoaded && twitterLoaded) {
        // $('#mixedfeed').empty();
        console.log('is loaded, show feed');
        showFeed();
-       facebookLoaded = false;
+       // facebookLoaded = false;
        instaLoaded = false;
        twitterLoaded = false;
        instaCounter = 0;
@@ -86,9 +86,9 @@ function checkVariable() {
 }
 
 function refreshPosts(){
-    if (!facebookLoaded || !instaLoaded || !twitterLoaded) {
+    if (!instaLoaded || !twitterLoaded) {
         getInstagramPosts();
-        getFacebookPosts();
+        // getFacebookPosts();
         getTwitterPosts();
     }
 }
@@ -103,7 +103,7 @@ $(document).ready(function(){
 
 function showFeed(){
 
-    var mixedfeed = $.merge($.merge( [], instaPosts.data ), facebookPosts.posts );
+    var mixedfeed = instaPosts.data
     mixedfeed = $.merge($.merge( [], twitterPosts ), mixedfeed );
 
     mixedfeed = mixedfeed.sort(SortByDate);
