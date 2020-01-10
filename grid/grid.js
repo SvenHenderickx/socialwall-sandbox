@@ -74,7 +74,7 @@ window.onload = function () {
         instawall2.style.opacity = "0";
     }
 
-    setTimeout(scrolldown, 10000);
+    setTimeout(scrolldown, (30 * 1000));
 
     // timeouts
 

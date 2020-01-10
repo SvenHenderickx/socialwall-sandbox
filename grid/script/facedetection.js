@@ -174,8 +174,8 @@ const _p1 = { x: 0, y: 0 }
 
 $(document).ready(function(){
 
-    width = $('body').width();
-    height = $('body').height();
+    widthFull = $('#full0').width();
+    heightFull = $('#full0').height();
 
     // Set the BRFv5 library name here, also set your own appId for reference.
 
@@ -353,8 +353,8 @@ $(document).ready(function(){
             facex = face.landmarks[27].x;
             facey = face.landmarks[27].y;
 
-            facex = (facex / _width) * width;
-            facey = (facey / _height) * height + minHeight;
+            facex = (facex / _width) * widthFull;
+            facey = (facey / _height) * heightFull + minHeight;
             $('#facepoint').show();
             $('#facepoint').css(
                 {

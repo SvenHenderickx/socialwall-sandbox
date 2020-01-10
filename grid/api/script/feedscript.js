@@ -12,7 +12,7 @@ var twitterCounter = 0;
 var maxPostsPerChannel = 5;
 var maxPostTotal = 20;
 
-var arrayOfElements = [];
+var tempElement = null;
 
 function getTwitterPosts(){
 
@@ -132,24 +132,34 @@ function showFeed(){
 function getElementsForHover(){
     // console.log('In get elements function')
     $('#tweets .tweet').each(function(v){
-        // console.log('element')
-        // console.log($(this));
-        // console.log(' element left: ' + $(this).offset().left + ' element top: ' + $(this).offset().top);
-
-        if(facex >= $(this).offset().left && facex <= ($(this).offset().left + $(this).width())){
-            if(facey >= $(this).offset().top && facex <= ($(this).offset().top + $(this).height())){
-                console.log('ON ELEMENT');
-                $(this).addClass('mouseHover');
-            }
-            else{
-                $(this).removeClass('mouseHover')
-            }
+        if(checkMouseOnElement(this)){
+            $(this).addClass('mouseHover');
         }
         else{
             $(this).removeClass('mouseHover');
-        }
 
+        }
     });
+
+    // $('#tweets .tweet').each(function(v){
+    //     if($(tempElement).attr('data-id') != $(this).attr('data-id')){
+    //     }
+    // });
+}
+
+function checkMouseOnElement(element){
+    if(facex >= $(element).offset().left && facex <= ($(element).offset().left + $(this).width())){
+        if(facey >= $(element).offset().top && facex <= ($(element).offset().top + $(this).height())){
+            tempElement = $(element);
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    else{
+        return false;
+    }
 }
 
 function SortByDate(a, b){
@@ -240,7 +250,7 @@ function addToFeed(feedObject){
         var date = new Date(feedObject.created_at);
         date = '<small>' + date + '</small>';
 
-        $('#tweets').append('<div class="tweet"><h1><img src="img/twitter.png">@FontysICT</h1><p>' + caption + '</p><span class="tweet-datum">' + date + '</span></div>');
+        $('#tweets').append('<div data-id="' + twitterCounter + '" class="tweet"><h1><img src="img/twitter.png">@FontysICT</h1><p>' + caption + '</p><span class="tweet-datum">' + date + '</span></div>');
         // console.log('added ' + caption);
 
     }
