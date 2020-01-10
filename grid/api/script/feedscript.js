@@ -12,6 +12,8 @@ var twitterCounter = 0;
 var maxPostsPerChannel = 5;
 var maxPostTotal = 20;
 
+var arrayOfElements = [];
+
 function getTwitterPosts(){
 
     $.ajax({
@@ -98,6 +100,8 @@ $(document).ready(function(){
     setInterval(checkVariable, 500);
     setInterval(refreshPosts, 60000);
 
+    setInterval(getElementsForHover, 100);
+
 });
 
 function showFeed(){
@@ -110,6 +114,7 @@ function showFeed(){
     console.log(mixedfeed);
 
     $('#tweets').empty();
+
     var count = 0;
 
     $.each(mixedfeed, function(k, v){
@@ -120,6 +125,31 @@ function showFeed(){
             return false;
         }
     })
+
+    getElementsForHover();
+}
+
+function getElementsForHover(){
+    // console.log('In get elements function')
+    $('#tweets .tweet').each(function(v){
+        // console.log('element')
+        // console.log($(this));
+        // console.log(' element left: ' + $(this).offset().left + ' element top: ' + $(this).offset().top);
+
+        if(facex >= $(this).offset().left && facex <= ($(this).offset().left + $(this).width())){
+            if(facey >= $(this).offset().top && facex <= ($(this).offset().top + $(this).height())){
+                console.log('ON ELEMENT');
+                $(this).addClass('mouseHover');
+            }
+            else{
+                $(this).removeClass('mouseHover')
+            }
+        }
+        else{
+            $(this).removeClass('mouseHover');
+        }
+
+    });
 }
 
 function SortByDate(a, b){

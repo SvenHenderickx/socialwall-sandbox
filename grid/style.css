@@ -482,3 +482,8 @@ body {
     box-shadow: 1px 1px 5px rgba(0, 0, 0, .3);
     border-radius: 5px;
 }
+
+.mouseHover {
+    background-color: #284763;
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.5);
+}
