@@ -1,8 +1,11 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap');
+
 html, body {
     height: 100%;
     width: 100%;
     margin: 0;
     padding: 0;
+    font-family: 'Roboto Mono', monospace;
 }
 
 #canvas {
@@ -70,15 +73,34 @@ line.link {
     padding: 10px;
 }
 
-#facepoint {
-    width: 10px;
-    height: 10px;
+#processRing {
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
-    background-color: red;
     position: absolute;
     z-index: 1000;
 }
 
 #_imageData {
   /* filter: grayscale(100%); */
+}
+
+#processRingsvg{
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+#processRingsvg{
+  color: white;
+}
+
+#videoDisclaimer{
+  color: white;
+  mix-blend-mode: difference;
+  position: fixed;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: 50px;
 }
