@@ -78,13 +78,13 @@
 
         <div class="wall-1-video">
 
-            <iframe width="50%" height="100%" src="https://www.youtube.com/embed/rAAFSl9Gsn0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe id="iframevid" width="50%" height="100%" src="https://www.youtube.com/embed/rAAFSl9Gsn0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
             <div class="video-description" id="vid-desc">
 
-                <h2>TIPS - Virtual Reality & Augmented Reality VR&AR</h2>
+                <h2 id="desc-title">TIPS - Virtual Reality & Augmented Reality VR&AR</h2>
 
-                <p>
+                <p id="desc-desc">
                     VR & AR....een wereld vol mogelijkheden! Maar wat is nu precies VR (virtual reality)? En AR (augmented reality)? En wat is het verschil? Wat kun je ermee? Reporters Benjamin en Aytac testen diverse brillen. Deze hebben wij in huis bij Fontys Hogeschool ICT en zijn te gebruiken door onze studenten en medewerkers. Nieuwsgierig? Leen ze eens bij de ISSD en ervaar zelf wat je ermee kunt! Bekijk nu de video.
                     </br></br>
                     Meer info over het studeren bij Fontys Hogeschool ICT: https://fontys.nl/hbo-ict/
@@ -312,6 +312,7 @@
 <video  id="_webcam" style="display: none;" playsinline></video>
 <canvas id="_imageData" style="display: none"></canvas>
 <div id="facepoint"></div>
+<script src="video.js"></script>
 
 
 <script src="js/brfv5/brfv5_js_tk141119_v5.1.0_trial_no_modules.js"></script>
