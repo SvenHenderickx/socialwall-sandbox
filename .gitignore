@@ -1,3 +1,4 @@
-
 .ftpconfig
 .ftpignore
+php/secrets.php
+grid/api/php/secrets.php

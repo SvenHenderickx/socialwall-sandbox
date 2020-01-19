@@ -4,10 +4,19 @@
     <meta charset="UTF-8">
     <title>Grid</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="api/script/instafeed.min.js"></script>
+    <script type="text/javascript" src="api/script/feedscript.js"></script>
+    <script type='text/javascript' >
+      var minHeight = 0;
+      var facex = 0;
+      var facey = 0;
+    </script>
+    <script type="text/javascript" src="script/facedetection.js"></script>
 </head>
 <body>
 
-<div class="holder">
+<div class="holder" id="full0">
 
 <div class="sociall-wall-1">
 
@@ -19,7 +28,7 @@
 
                 <h1> <img src="img/twitter.png"> @FontysICT</h1>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <p>Veel belangstelling voor openbaar college ‘Met technologie meer mens?’ Interessant verhaal door lectoren Mark de Graaf en Eveline Wouters. #TecforSociety #FontysforSociety</p>
 
                 <span class="tweet-datum">12 december 2019</span>
 
@@ -28,7 +37,7 @@
 
                 <h1> <img src="img/twitter.png" width="20" height="20"> @FontysICT</h1>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <p>Met Make IT Work, hét ICT omscholingstraject voor hoogopgeleiden, aanwezig op De Nederlandse Carrièredagen. Meer weten: http://it-omscholing.nl en http://carrierebeurs.nl/de-nederlandse-carrieredagen/item12 …</p>
 
                 <span class="tweet-datum">12 december 2019</span>
 
@@ -37,7 +46,7 @@
 
                 <h1> <img src="img/twitter.png" width="20" height="20"> @FontysICT</h1>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <p>Dat technologie ons leven aangenamer kan maken, weten we inmiddels. Maar dat betekent niet dat er een automatische liefdesrelatie is tussen mens en technologie. Eveline Wouters en Mark de Graaf belichten dit onderwerp op 26-11 in een openbaar college.</p>
 
                 <span class="tweet-datum">12 december 2019</span>
 
@@ -46,7 +55,7 @@
 
                 <h1> <img src="img/twitter.png" width="20" height="20"> @FontysICT</h1>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <p>Onze Docent van dit Jaar @CyrielGielen vertelt enthousiast waarom het zo leuk is om Docent vh Jaar te worden. Aanmelden voor de titel 2020 kan tot 01-12-19.</p>
 
                 <span class="tweet-datum">12 december 2019</span>
 
@@ -55,7 +64,7 @@
 
                 <h1> <img src="img/twitter.png" width="20" height="20"> @FontysICT</h1>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <p>Wie komt ons bezoeken in Utrecht? #MakeITWork #FontysICT #FontysPro</p>
 
                 <span class="tweet-datum">12 december 2019</span>
 
@@ -69,13 +78,13 @@
 
         <div class="wall-1-video">
 
-            <iframe width="50%" height="100%" src="https://www.youtube.com/embed/rAAFSl9Gsn0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe id="iframevid" width="50%" height="100%" src="https://www.youtube.com/embed/rAAFSl9Gsn0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-            <div class="video-description">
+            <div class="video-description" id="vid-desc">
 
-                <h2>TIPS - Virtual Reality & Augmented Reality VR&AR</h2>
+                <h2 id="desc-title">TIPS - Virtual Reality & Augmented Reality VR&AR</h2>
 
-                <p>
+                <p id="desc-desc">
                     VR & AR....een wereld vol mogelijkheden! Maar wat is nu precies VR (virtual reality)? En AR (augmented reality)? En wat is het verschil? Wat kun je ermee? Reporters Benjamin en Aytac testen diverse brillen. Deze hebben wij in huis bij Fontys Hogeschool ICT en zijn te gebruiken door onze studenten en medewerkers. Nieuwsgierig? Leen ze eens bij de ISSD en ervaar zelf wat je ermee kunt! Bekijk nu de video.
                     </br></br>
                     Meer info over het studeren bij Fontys Hogeschool ICT: https://fontys.nl/hbo-ict/
@@ -121,25 +130,25 @@
 
             <div class="instagram-square">
 
-                <img src="img/placeholder.jpg">
+                <img src="img/instapost2.png">
 
             </div>
 
             <div class="instagram-square">
 
-                <img src="img/placeholder.jpg">
+                <img src="img/instapost3.png">
 
             </div>
 
             <div class="instagram-square">
 
-                <img src="img/placeholder.jpg">
+                <img src="img/instapost4.png">
 
             </div>
 
             <div class="instagram-square">
 
-                <img src="img/placeholder.jpg">
+                <img src="img/instapost5.png">
 
             </div>
 
@@ -153,7 +162,8 @@
 
     <img src="img/info-button.png">
 
-    <marquee direction="left">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</marquee>
+    <marquee direction="left" id="scroller1">
+        Twitter - Veel belangstelling voor openbaar college ‘Met technologie meer mens?’ Interessant verhaal door lectoren Mark de Graaf en Eveline Wouters. #TecforSociety #FontysforSociety - Met Make IT Work, hét ICT omscholingstraject voor hoogopgeleiden, aanwezig op De Nederlandse Carrièredagen. Meer weten: http://it-omscholing.nl en http://carrierebeurs.nl/de-nederlandse-carrieredagen/item12 … -     </marquee>
 
 </div>
 
@@ -165,11 +175,11 @@
 
         <div class="wall-2-container">
 
-            <div class="wall-2-instagram">
+            <div class="wall-2-instagram" id="instawall2">
 
                 <div class="instagram-square-big">
 
-                    <img src="img/placeholder.jpg">
+                    <img src="img/instapost.png">
 
                 </div>
 
@@ -185,7 +195,9 @@
 
                     <p>
                         <strong>@FontysICT</strong> -
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                        Congrats to all students! 🎓🎉✨#proud #fontysict #fontysictinnovationlab #wearefontys
+                        •
+                        // REPOST // @annemariediepenbroek The first @fontysict graduation ceremony at the FontysICTInnovationLab @strijpt Congratulations to all the students!
 
                         </br>
                         </br>
@@ -211,7 +223,7 @@
 
                     <h1> <img src="img/twitter.png" width="20" height="20"> @FontysICT</h1>
 
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    <p>Fontys Hogeschool ICT gaat hoogopgeleiden omscholen naar ICT-professionals met baangarantie via Make IT Work samen met HvA en bedrijfsleven! #MakeITWork #FontysPro</p>
 
                     <span class="tweet-datum">12 december 2019</span>
 
@@ -220,7 +232,7 @@
 
                     <h1> <img src="img/twitter.png" width="20" height="20"> @FontysICT</h1>
 
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    <p>ICT in de maatschappij en arbeidsmarkt: beginnerscursus #ddwl #fontyspro #levenlangontwikkelen</p>
 
                     <span class="tweet-datum">12 december 2019</span>
 
@@ -237,48 +249,35 @@
 
             </div>
 
-                <div class="wall-2-tweets hidden" id="wall2tweets2">
-
-                    <div class="tweet tweet2">
-
-                        <h1> <img src="img/twitter.png" width="20" height="20"> @FontysICT</h1>
-
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-
-                        <span class="tweet-datum">12 december 2019</span>
-
-                    </div>
-                    <div class="tweet tweet2">
-
-                        <h1> <img src="img/twitter.png" width="20" height="20"> @FontysICT</h1>
-
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-
-                        <span class="tweet-datum">12 december 2019</span>
-
-                    </div>
-                    <div class="tweet tweet2">
-
-                        <h1> <img src="img/twitter.png" width="20" height="20"> @FontysICT</h1>
-
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-
-                        <span class="tweet-datum">12 december 2019</span>
-
-                    </div>
-
-                </div>
-
             <div class="wall-2-scroller">
 
                 <img src="img/info-button.png" id="huts">
-                saadad
+                <marquee direction="left">
+                    Twitter - Veel belangstelling voor openbaar college ‘Met technologie meer mens?’ Interessant verhaal door lectoren Mark de Graaf en Eveline Wouters. #TecforSociety #FontysforSociety - Met Make IT Work, hét ICT omscholingstraject voor hoogopgeleiden, aanwezig op De Nederlandse Carrièredagen. Meer weten: http://it-omscholing.nl en http://carrierebeurs.nl/de-nederlandse-carrieredagen/item12 … -     </marquee>
 
             </div>
 
                 <div class="wall-2-youtube">
 
-                    aaddadada
+                    <div class="yt-left">
+                        <img src="img/youtubepage.png">
+                    </div>
+
+                    <div class="yt-right">
+
+                        <h1>FontysICT op YouTube</h1>
+
+                        <p>
+                            Fontys Hogeschool ICT | De eerste en enige hogeschool die alle ICT opleidingen aanbiedt binnen één brede bacheloropleiding!
+                        </p>
+
+                        <p>
+                            Klik op de groene knop de bedienmodule om de meeste recent video van het Fontys ICT kanaal te bekijken!
+                        </p>
+
+                        <img src="img/groeneknop.png">
+
+                    </div>
 
                 </div>
 
@@ -290,9 +289,32 @@
 
 </div>
 
+<div class="holder" id="full2">
+
+    <div class="stretcher" id="vidplayer">
+
+    </div>
+
+</div>
+
+<script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-<script src="grid.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js"></script>
 
+<script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-analytics.js"></script>
+
+<script src="grid.js"></script>
+<script src="cms.js"></script>
+<video  id="_webcam" style="display: none;" playsinline></video>
+<canvas id="_imageData" style="display: none"></canvas>
+<div id="facepoint"></div>
+<script src="video.js"></script>
+
+
+<script src="js/brfv5/brfv5_js_tk141119_v5.1.0_trial_no_modules.js"></script>
 </body>
 </html>
