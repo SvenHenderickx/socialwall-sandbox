@@ -1,6 +1,17 @@
 var facex = 0;
 var facey = 0;
 
+var timePresent = 0;
+var timeAbsent = 0;
+var personPresent = false;
+var counterStarted = false;
+var counterTimer;
+
+function detectPerson(){
+    personPresent = true;
+}
+
+
 $(document).ready(function() {
 
    // Set the BRFv5 library name here, also set your own appId for reference.
@@ -105,7 +116,7 @@ $(document).ready(function() {
 
        brfv5Config.faceDetectionConfig.minFaceSize = 144 * sizeFactor
        brfv5Config.faceDetectionConfig.maxFaceSize = 480 * sizeFactor
-       brfv5Config.faceTrackingConfig.numFacesToTrack = 2
+       brfv5Config.faceTrackingConfig.numFacesToTrack = 1
 
        if(imageWidth < imageHeight) {
 
@@ -137,7 +148,7 @@ $(document).ready(function() {
        brfv5Config.faceTrackingConfig.enableFreeRotation       = true
        brfv5Config.faceTrackingConfig.maxRotationZReset        = 999.0
 
-       brfv5Config.faceTrackingConfig.numFacesToTrack          = 2
+       brfv5Config.faceTrackingConfig.numFacesToTrack          = 1
        brfv5Config.enableFaceTracking                          = true
 
        console.log('configureTracking:', _brfv5Config)
@@ -180,20 +191,41 @@ $(document).ready(function() {
           loaderPosx= face.bounds.x;
           loaderPosy = face.bounds.y;
 
-          loaderPosx= loaderPosx - 100;
-          loaderPosy= loaderPosy - 100;
-
-           $('#processRing').css(
+          // path.style.strokeDasharray = length + ' ' + length;
+          // path.style.strokeDashoffset = length;
+            startCounter();
+           $('#processRing').show().css(
                {
-                   'top': loaderPosy + "px",
-                   'left': loaderPosx + "px"
+                   'top': loaderPosy - 100 + "px",
+                   'left': loaderPosx - 100 + "px"
+               }
+           );
+           $('#socialPosts').css(
+               {
+                   'top': loaderPosy + 50 + "px",
+                   'left': loaderPosx - 650 + "px"
                }
            );
 
-           // console.log(facex);
+           if(!personPresent){
+             detectPerson();
+           }
+
+           else {
+             personPresent = true;
+           }
+
 
          } else {
 
+           if(timeAbsent){
+             clearTimeout(timeAbsent);
+           }
+           timeAbsent = setTimeout(function(){personPresent = false}, 5 * 1000);
+           $('#processRing').hide();
+           $('#socialPosts').hide();
+           counterStarted = false;
+           stopCounter();
            doDrawFaceDetection = true
          }
        }
@@ -299,5 +331,28 @@ $(document).ready(function() {
        (((color >> 16) & 0xff).toString(10)) + ', ' +
        (((color >> 8) & 0xff).toString(10))  + ', ' +
        (((color) & 0xff).toString(10)) + ', ' + alpha +')'
+   }
+
+
+   function startCounter(){
+     if(!counterStarted){
+       $('#counter').html('Tracking..');
+       counterStarted = true;
+       document.getElementById("ani-processRing").beginElement();
+       timercounter = setTimeout(showPosts, 5000)
+      }
+   }
+
+   function showPosts(){
+     if(counterStarted){
+       $('#counter').html('Done');
+       $('#socialPosts').fadeIn(200);
+     }
+   }
+
+
+   function stopCounter(){
+     document.getElementById("ani-processRing").endElement();
+     clearTimeout(counterTimer);
    }
 })
