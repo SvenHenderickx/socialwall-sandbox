@@ -80,6 +80,7 @@ line.link {
     position: absolute;
     z-index: 1000;
     font-family: 'Roboto Mono', monospace;
+    display: none;
 }
 
 #faceposition{
@@ -114,6 +115,7 @@ line.link {
 
 #socialPosts{
   position: absolute;
+  display: none;
 }
 .wall-2-instagram {
     width: 300px;
